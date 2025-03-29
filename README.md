@@ -5,25 +5,31 @@ Pet проект - гости на заводе. В стадии разрабо�
 
 Cоздать и активировать виртуальное окружение:
 
-```
-python3.9 -m venv env
-```
-
 * Если у вас Linux/macOS
 
     ```
+    python3 -m venv venv  
     source env/bin/activate
     ```
 
 * Если у вас windows
 
     ```
+    python -m venv venv
     source env/scripts/activate
     ```
 
+Обновите менеджер пакетов pip:
+* Если у вас Linux/macOS
+```
+python3 -m pip install --upgrade pip
+```
+
+* Если у вас windows
 ```
 python -m pip install --upgrade pip
 ```
+
 
 Установить зависимости из файла requirements.txt:
 
