@@ -1,0 +1,46 @@
+[tool.ruff]
+# Allow lines to be as long as 79.
+line-length = 79
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    # single quotes
+    "Q000",
+    # missing docstring
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D105",
+    "D106",
+    "D107",
+    # variable is shadowing
+    "A001",
+    "A002",
+    # self && __str__ annotation
+    "ANN001",
+    "ANN002",
+    "ANN003",
+    "ANN101",
+    "ANN201",
+    "ANN204",
+    # mutable class attributes should be annotated
+    "RUF012",
+    # cirylic language
+    "RUF001",
+    "RUF003",
+    # os.path.join
+    "PTH118",
+    # Unused method argument
+    "ARG002",
+    # Use context handler for opening filesRuff
+    "SIM115",
+    # `open()` should be replaced by `Path.open()`Ruff
+    "PTH123",
+    # `datetime.datetime.now()` called without a `tz` argumentRuff
+    "DTZ005",
+]
