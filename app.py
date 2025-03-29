@@ -2,7 +2,6 @@ from flask import Flask
 
 app = Flask(__name__)
 
-
 @app.route('/')
 def my_index_view():
     return 'Это мой первый Flask-проект'
