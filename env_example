@@ -1,0 +1,2 @@
+FLASK_APP=guests_app
+FLASK_DEBUG=1
