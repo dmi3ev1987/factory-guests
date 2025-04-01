@@ -29,6 +29,16 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+## Создать БД sqlite
+
+```
+$ flask shell
+
+>>> from guests_app import db
+>>> db.create_all()
+>>> quit()
+```
+
 
 ### Автор проекта
 
