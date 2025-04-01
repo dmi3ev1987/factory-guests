@@ -35,7 +35,7 @@ pip install -r requirements.txt
 flask shell
 ```
 
-Ввести команды по очереди в shell:
+После вход в shell вести команды по очереди:
 
 ```
 >>> from guests_app import db
