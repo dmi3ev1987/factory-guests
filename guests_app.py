@@ -27,5 +27,10 @@ def my_index_view():
     return jsonify(result)
 
 
+@app.route('/request-form')
+def request_form():
+    return render_template('request_form.html')
+
+
 if __name__ == '__main__':
     app.run()
