@@ -20,7 +20,7 @@
                 <nav>
                     <ul>
                         <li><a href="index.html" class="active">Список гостей</a></li>
-                        <li><a href="request-form.html">Подать заявку</a></li>
+                        <li><a href="{{ url_for('request_form') }}">Подать заявку</a></li>
                         <li><a href="approval.html">Одобрение заявок</a></li>
                         <li v-if="!isLoggedIn"><a href="login.html">Вход</a></li>
                         <li v-if="isLoggedIn"><a href="#" @click="logout">Выход</a></li>
