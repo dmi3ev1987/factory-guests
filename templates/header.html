@@ -1,0 +1,34 @@
+<header>
+    <div class="header-content">
+        <h1>Система учета посетителей завода</h1>
+        <nav>
+            <ul>
+                <li>
+                    <a 
+                    href="{{ url_for('index_view') }}" 
+                    class="{% if request.path == url_for('index_view') %}active{% endif %}"
+                    >
+                        Список гостей
+                    </a>
+                </li>
+                <li>
+                    <a
+                    href="{{ url_for('request_form') }}"
+                    class="{% if request.path == url_for('request_form') %}active{% endif %}">
+                        Подать заявку
+                    </a>
+                </li>
+                <li><a href="approval.html">Одобрение заявок</a></li>
+                <li v-if="!isLoggedIn"><a href="login.html">Вход</a></li>
+                <li v-if="isLoggedIn"><a href="#" @click="logout">Выход</a></li>
+            </ul>
+        </nav>
+    </div>
+    <svg class="logo" viewBox="0 0 150 150">
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" 
+              font-size="60" font-weight="bold" font-family="Arial" fill="#ecf0f1">
+            БСХ
+        </text>
+    </svg>
+    <!-- <img src="static/img/logo.png" class="logo" alt="Логотип завода"> -->
+</header>

@@ -1,106 +1,62 @@
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Система учета посетителей завода</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <script type="importmap">
-        {
-            "imports": {
-                "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
-            }
-        }
-    </script>
-</head>
-<body>
-    <div id="app">
-        <header>
-            <div class="header-content">
-                <h1>Система учета посетителей завода</h1>
-                <nav>
-                    <ul>
-                        <li><a href="{{ url_for('index_view') }}" class="active">Список гостей</a></li>
-                        <li><a href="{{ url_for('request_form') }}">Подать заявку</a></li>
-                        <li><a href="approval.html">Одобрение заявок</a></li>
-                        <li v-if="!isLoggedIn"><a href="login.html">Вход</a></li>
-                        <li v-if="isLoggedIn"><a href="#" @click="logout">Выход</a></li>
-                    </ul>
-                </nav>
+{% extends "base.html" %}
+{% block title %}Система учета посетителей завода{% endblock title %}
+{% block content %}
+<main>
+    <section class="visitors-list card-layout">
+        <div class="sidebar">
+            <h2>Фильтры</h2>
+            <div class="filter-group">
+                <label for="search">Поиск:</label>
+                <input type="text" id="search" v-model="searchQuery" placeholder="ФИО или организация">
             </div>
-            <svg class="logo" viewBox="0 0 150 150">
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" 
-                      font-size="60" font-weight="bold" font-family="Arial" fill="#ecf0f1">
-                    БСХ
-                </text>
-            </svg>
-            <!-- <img src="static/img/logo.png" class="logo" alt="Логотип завода"> -->
-        </header>
+            <div class="filter-group">
+                <label for="date-filter">Дата:</label>
+                <input type="date" id="date-filter" v-model="filterDate">
+            </div>
+        </div>
         
-        <main>
-            <section class="visitors-list card-layout">
-                <div class="sidebar">
-                    <h2>Фильтры</h2>
-                    <div class="filter-group">
-                        <label for="search">Поиск:</label>
-                        <input type="text" id="search" v-model="searchQuery" placeholder="ФИО или организация">
-                    </div>
-                    <div class="filter-group">
-                        <label for="date-filter">Дата:</label>
-                        <input type="date" id="date-filter" v-model="filterDate">
+        <div class="content">
+            <h2>Список гостей на заводе</h2>
+            
+            <div class="visitor-cards">
+                {% if visitors %}
+
+                <div class="visitor-card" v-for="visitor in filteredVisitors" :key="visitor.id">
+                    <h3>{{ visitor.fullName }}</h3>
+                    <div class="visitor-info">
+                        <div class="info-row">
+                            <span class="info-label">Организация:</span>
+                            <span class="info-value">{{ visitor.organization }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Приглашающее лицо:</span>
+                            <span class="info-value">{{ visitor.invitedBy }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Место посещения:</span>
+                            <span class="info-value">{{ visitor.location }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Дата начала:</span>
+                            <span class="info-value">{{ formatDateTime(visitor.startDate) }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Дата окончания:</span>
+                            <span class="info-value">{{ formatDateTime(visitor.endDate) }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Цель визита:</span>
+                            <span class="info-value">{{ visitor.purpose }}</span>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="content">
-                    <h2>Список гостей на заводе</h2>
-                    
-                    <div class="visitor-cards">
-                        {% if visitors %}
-
-                        <div class="visitor-card" v-for="visitor in filteredVisitors" :key="visitor.id">
-                            <h3>{{ visitor.fullName }}</h3>
-                            <div class="visitor-info">
-                                <div class="info-row">
-                                    <span class="info-label">Организация:</span>
-                                    <span class="info-value">{{ visitor.organization }}</span>
-                                </div>
-                                <div class="info-row">
-                                    <span class="info-label">Приглашающее лицо:</span>
-                                    <span class="info-value">{{ visitor.invitedBy }}</span>
-                                </div>
-                                <div class="info-row">
-                                    <span class="info-label">Место посещения:</span>
-                                    <span class="info-value">{{ visitor.location }}</span>
-                                </div>
-                                <div class="info-row">
-                                    <span class="info-label">Дата начала:</span>
-                                    <span class="info-value">{{ formatDateTime(visitor.startDate) }}</span>
-                                </div>
-                                <div class="info-row">
-                                    <span class="info-label">Дата окончания:</span>
-                                    <span class="info-value">{{ formatDateTime(visitor.endDate) }}</span>
-                                </div>
-                                <div class="info-row">
-                                    <span class="info-label">Цель визита:</span>
-                                    <span class="info-value">{{ visitor.purpose }}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div v-if="filteredVisitors.length === 0" class="no-data">
-                            <p>Нет данных для отображения</p>
-                        </div>
-
-                        {% endif %}
-                    </div>
+                <div v-if="filteredVisitors.length === 0" class="no-data">
+                    <p>Нет данных для отображения</p>
                 </div>
-            </section>
-        </main>
-        
-        <footer>
-            <p>&copy; 2023 Система учета посетителей завода</p>
-        </footer>
-    </div>
-    
-    <script type="module" src="config.js"></script>
-    <script type="module" src="app.js"></script>
-</body>
-</html>
+
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock content %}

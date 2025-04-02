@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Система учета посетителей завода</title>
+    <title>{% block title %}Система учета посетителей завода{% endblock title %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script type="importmap">
         {
@@ -14,8 +14,10 @@
     </script>
 </head>
 <body>
-    {% include "header.html" %} 
-    {% block content %}{% endblock content %}
-    {% include "footer.html" %}
-  </body>
+    <div id="app">
+        {% include "header.html" %} 
+        {% block content %}{% endblock content %}
+        {% include "footer.html" %}
+    </div>
+</body>
 </html> 
