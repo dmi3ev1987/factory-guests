@@ -1,105 +1,62 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Подать заявку на посещение - Система учета посетителей завода</title>
-    <link rel="stylesheet" href="static/styles.css">
-    <script type="importmap">
-        {
-            "imports": {
-                "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
-            }
-        }
-    </script>
-</head>
-<body>
-    <div id="app">
-        <header>
-            <div class="header-content">
-                <h1>Система учета посетителей завода</h1>
-                <nav>
-                    <ul>
-                        <li><a href="{{ url_for('index_view') }}">Список гостей</a></li>
-                        <li><a href="{{ url_for('request_form') }}" class="active">Подать заявку</a></li>
-                        <li><a href="approval.html">Одобрение заявок</a></li>
-                        <li v-if="!isLoggedIn"><a href="login.html">Вход</a></li>
-                        <li v-if="isLoggedIn"><a href="#" @click="logout">Выход</a></li>
-                    </ul>
-                </nav>
+{% extends "base.html" %}
+{% block title %}Подача заявки{% endblock title %}
+{% block content %}
+<main>
+    <section class="request-form">
+        <h2>Заявка на посещение завода</h2>
+        
+        <form @submit.prevent="submitRequest" v-if="isLoggedIn">
+            <div class="form-group">
+                <label for="fullName">ФИО посетителя:</label>
+                <input type="text" id="fullName" v-model="requestForm.fullName" required>
             </div>
-            <svg class="logo" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="40" fill="#3498db" />
-                <rect x="35" y="35" width="30" height="30" fill="#ecf0f1" />
-                <path d="M20,60 L50,20 L80,60 Z" fill="#2c3e50" />
-            </svg>
-        </header>
+            
+            <div class="form-group">
+                <label for="organization">Организация:</label>
+                <input type="text" id="organization" v-model="requestForm.organization" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="invitedBy">Приглашающее лицо:</label>
+                <input type="text" id="invitedBy" v-model="requestForm.invitedBy" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="location">Место посещения:</label>
+                <select id="location" v-model="requestForm.location" required>
+                    <option value="">Выберите место посещения</option>
+                    <option v-for="location in locations" :value="location">{{ location }}</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="startDate">Дата и время начала:</label>
+                <input type="datetime-local" id="startDate" v-model="requestForm.startDate" required step="1800" min="08:00" max="18:00">
+            </div>
+            
+            <div class="form-group">
+                <label for="endDate">Дата и время окончания:</label>
+                <input type="datetime-local" id="endDate" v-model="requestForm.endDate" required step="1800">
+            </div>
+            
+            <div class="form-group">
+                <label for="purpose">Цель визита:</label>
+                <textarea id="purpose" v-model="requestForm.purpose" required></textarea>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn primary">Отправить заявку</button>
+                <button type="reset" class="btn secondary" @click="resetForm">Сбросить</button>
+            </div>
+        </form>
         
-        <main>
-            <section class="request-form">
-                <h2>Заявка на посещение завода</h2>
-                
-                <form @submit.prevent="submitRequest" v-if="isLoggedIn">
-                    <div class="form-group">
-                        <label for="fullName">ФИО посетителя:</label>
-                        <input type="text" id="fullName" v-model="requestForm.fullName" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="organization">Организация:</label>
-                        <input type="text" id="organization" v-model="requestForm.organization" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="invitedBy">Приглашающее лицо:</label>
-                        <input type="text" id="invitedBy" v-model="requestForm.invitedBy" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="location">Место посещения:</label>
-                        <select id="location" v-model="requestForm.location" required>
-                            <option value="">Выберите место посещения</option>
-                            <option v-for="location in locations" :value="location">{{ location }}</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="startDate">Дата и время начала:</label>
-                        <input type="datetime-local" id="startDate" v-model="requestForm.startDate" required step="1800" min="08:00" max="18:00">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="endDate">Дата и время окончания:</label>
-                        <input type="datetime-local" id="endDate" v-model="requestForm.endDate" required step="1800">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="purpose">Цель визита:</label>
-                        <textarea id="purpose" v-model="requestForm.purpose" required></textarea>
-                    </div>
-                    
-                    <div class="form-actions">
-                        <button type="submit" class="btn primary">Отправить заявку</button>
-                        <button type="reset" class="btn secondary" @click="resetForm">Сбросить</button>
-                    </div>
-                </form>
-                
-                <div v-else class="login-required">
-                    <p>Для создания заявки необходимо <a href="login.html">войти в систему</a>.</p>
-                </div>
-                
-                <div v-if="formSubmitted" class="success-message">
-                    <p>Ваша заявка успешно отправлена и находится на рассмотрении.</p>
-                </div>
-            </section>
-        </main>
+        <div v-else class="login-required">
+            <p>Для создания заявки необходимо <a href="login.html">войти в систему</a>.</p>
+        </div>
         
-        <footer>
-            <p>&copy; 2023 Система учета посетителей завода</p>
-        </footer>
-    </div>
-    
-    <script type="module" src="config.js"></script>
-    <script type="module" src="request-form.js"></script>
-</body>
-</html>
+        <div v-if="formSubmitted" class="success-message">
+            <p>Ваша заявка успешно отправлена и находится на рассмотрении.</p>
+        </div>
+    </section>
+</main>
+{% endblock content %}
