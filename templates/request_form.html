@@ -20,8 +20,8 @@
                 <h1>Система учета посетителей завода</h1>
                 <nav>
                     <ul>
-                        <li><a href="index.html">Список гостей</a></li>
-                        <li><a href="request_form.html" class="active">Подать заявку</a></li>
+                        <li><a href="{{ url_for('index_view') }}">Список гостей</a></li>
+                        <li><a href="{{ url_for('request_form') }}" class="active">Подать заявку</a></li>
                         <li><a href="approval.html">Одобрение заявок</a></li>
                         <li v-if="!isLoggedIn"><a href="login.html">Вход</a></li>
                         <li v-if="isLoggedIn"><a href="#" @click="logout">Выход</a></li>

@@ -32,8 +32,12 @@ pip install -r requirements.txt
 ## Создать БД sqlite
 
 ```
-$ flask shell
+flask shell
+```
 
+После вход в shell вести команды по очереди:
+
+```
 >>> from guests_app import db
 >>> db.create_all()
 >>> quit()
