@@ -18,7 +18,7 @@ class Guest(db.Model):
 
 
 @app.route('/')
-def my_index_view():
+def index_view():
     quantity = Guest.query.count()
     if quantity == 0:
         return render_template('index.html')
