@@ -5,16 +5,17 @@
             <ul>
                 <li>
                     <a 
-                    href="{{ url_for('index_view') }}" 
-                    class="{% if request.path == url_for('index_view') %}active{% endif %}"
+                        href="{{ url_for('index_view') }}" 
+                        class="{% if request.path == url_for('index_view') %}active{% endif %}"
                     >
                         Список гостей
                     </a>
                 </li>
                 <li>
                     <a
-                    href="{{ url_for('request_form') }}"
-                    class="{% if request.path == url_for('request_form') %}active{% endif %}">
+                        href="{{ url_for('request_form') }}"
+                        class="{% if request.path == url_for('request_form') %}active{% endif %}"
+                    >
                         Подать заявку
                     </a>
                 </li>
