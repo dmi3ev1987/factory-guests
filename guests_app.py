@@ -1,9 +1,12 @@
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import FlaskForm
+from wtforms import DateTimeField, StringField, SubmitField, TextAreaField
+from wtforms.validators import DataRequired, Length
 
 app = Flask(__name__, static_folder='static_dir')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-app.config['SECRET_KEY'] = 'MY SECRET KEY'
+app.config['SECRET_KEY'] = 'SECRET KEY'
 
 db = SQLAlchemy(app)
 
@@ -16,7 +19,49 @@ class Guest(db.Model):
     place_to_visit = db.Column(db.String(128), nullable=False)
     time_start = db.Column(db.DateTime, nullable=False)
     time_end = db.Column(db.DateTime, nullable=False)
+    purpose = db.Column(db.Text, nullable=False)
     approved = db.Column(db.Boolean, default=False)
+
+
+class GuestForm(FlaskForm):
+    full_name = StringField(
+        'ФИО посетителя',
+        validators=[
+            DataRequired(message='Обязательное поле'),
+            Length(max=128),
+        ],
+    )
+    company_name = StringField(
+        'Название организации',
+        validators=[
+            DataRequired(message='Обязательное поле'),
+            Length(max=128),
+        ],
+    )
+    inviter = StringField(
+        'Приглашающее лицо',
+        validators=[
+            DataRequired(message='Обязательное поле'),
+            Length(max=128),
+        ],
+    )
+    place_to_visit = StringField(
+        'Место посещения',
+        validators=[
+            DataRequired(message='Обязательное поле'),
+            Length(max=128),
+        ],
+    )
+    time_start = DateTimeField(
+        'Дата и время начала',
+        validators=[DataRequired()],
+    )
+    time_end = DateTimeField(
+        'Дата и время окончания',
+        validators=[DataRequired()],
+    )
+    purpose = TextAreaField('Цель визита', validators=[DataRequired()])
+    submit = SubmitField('Отправить заявку')
 
 
 @app.route('/')
