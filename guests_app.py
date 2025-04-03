@@ -1,7 +1,12 @@
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import DateTimeField, StringField, SubmitField, TextAreaField
+from wtforms import (
+    DateTimeLocalField,
+    StringField,
+    SubmitField,
+    TextAreaField,
+)
 from wtforms.validators import DataRequired, Length
 
 app = Flask(__name__, static_folder='static_dir')
@@ -52,16 +57,17 @@ class GuestForm(FlaskForm):
             Length(max=128),
         ],
     )
-    time_start = DateTimeField(
+    time_start = DateTimeLocalField(
         'Дата и время начала',
         validators=[DataRequired()],
     )
-    time_end = DateTimeField(
+    time_end = DateTimeLocalField(
         'Дата и время окончания',
         validators=[DataRequired()],
     )
     purpose = TextAreaField('Цель визита', validators=[DataRequired()])
     submit = SubmitField('Отправить заявку')
+    reset = SubmitField('Сбросить')
 
 
 @app.route('/')
@@ -76,7 +82,8 @@ def index_view():
 
 @app.route('/request-form')
 def request_form():
-    return render_template('request_form.html')
+    form = GuestForm()
+    return render_template('request_form.html', form=form)
 
 
 if __name__ == '__main__':

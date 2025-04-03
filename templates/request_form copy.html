@@ -4,52 +4,7 @@
 <main>
     <section class="request-form">
         <h2>Заявка на посещение завода</h2>
-
-        <form> 
-            {{ form.csrf_token }}
-            <div class="form-group">
-                {{ form.full_name.label }}
-                {{ form.full_name(placeholder="ФИО посетителя") }}
-            </div>
-            <div class="form-group">
-                {{ form.company_name(class="form-control", placeholder="Организация") }}
-            </div>
-            <div class="form-group">
-                {{ form.inviter(class="form-control", placeholder="Приглашающее лицо") }}
-            </div>
-            <div class="form-group">
-                {{ form.place_to_visit(class="form-control", placeholder="Место посещения") }}
-            </div>
-            <div class="form-group">
-                {{ form.time_start(class="form-control", placeholder="Дата и время начала") }}
-            </div>
-            <div class="form-group">
-                {{ form.time_end(class="form-control", placeholder="Дата и время окончания") }}
-            </div>
-            <div class="form-group">
-                {{ form.purpose(class="form-control", placeholder="Цель визита") }}
-            </div>
-            <div class="form-actions">
-                {{ form.submit(class="btn primary") }}
-                {{ form.reset(class="btn secondary") }}
-            </div>
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">{{ form.submit(class="btn primary") }}</button>
-                <button type="reset" class="btn btn-secondary">Сбросить форму</button>
-            </div>
-        </form>
         
-        <div class="form-group">
-            <p>
-                _____________________
-            </p>
-            <p>
-                СТАРАЯ ФОРМА
-            </p>
-            <p>
-                СТАРАЯ ФОРМА
-            </p>
-        </div>
         <form @submit.prevent="submitRequest" v-if="isLoggedIn">
             <div class="form-group">
                 <label for="fullName">ФИО посетителя:</label>
