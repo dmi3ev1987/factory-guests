@@ -33,6 +33,7 @@ class GuestForm(FlaskForm):
         'ФИО посетителей',
         validators=[
             DataRequired(message='Обязательное поле'),
+            Length(max=1000),
         ],
     )
     company_name = StringField(
@@ -58,13 +59,19 @@ class GuestForm(FlaskForm):
     )
     time_start = DateTimeLocalField(
         'Дата и время начала',
-        validators=[DataRequired()],
+        validators=[DataRequired(message='Обязательное поле')],
     )
     time_end = DateTimeLocalField(
         'Дата и время окончания',
-        validators=[DataRequired()],
+        validators=[DataRequired(message='Обязательное поле')],
     )
-    purpose = TextAreaField('Цель визита', validators=[DataRequired()])
+    purpose = TextAreaField(
+        'Цель визита',
+        validators=[
+            DataRequired(message='Обязательное поле'),
+            Length(max=1000),
+        ],
+    )
     submit = SubmitField('Отправить заявку')
 
 
@@ -75,12 +82,26 @@ def index_view():
         return render_template('index.html')
     guests = Guest.query.all()
     result = [{guest.id: guest.full_name} for guest in guests]
-    return jsonify(result)
+    # return jsonify(result)
+    return render_template('index.html')
 
 
-@app.route('/request-form')
+@app.route('/request-form', methods=['GET', 'POST'])
 def request_form_view():
     form = GuestForm()
+    if form.validate_on_submit():
+        guest = Guest(
+            full_name=form.full_name.data,
+            company_name=form.company_name.data,
+            inviter=form.inviter.data,
+            place_to_visit=form.place_to_visit.data,
+            time_start=form.time_start.data,
+            time_end=form.time_end.data,
+            purpose=form.purpose.data,
+        )
+        db.session.add(guest)
+        db.session.commit()
+        return 'Заявка отправлена'
     return render_template('request_form.html', form=form)
 
 

@@ -9,89 +9,68 @@
             {{ form.csrf_token }}
             <div class="form-group">
                 {{ form.full_name(class="form-control", placeholder=form.full_name.label.text) }}
+                {% if form.full_name.errors %}
+                    {% for error in form.full_name.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class="form-group">
                 {{ form.company_name(class="form-control", placeholder=form.company_name.label.text) }}
+                {% if form.company_name.errors %}
+                    {% for error in form.company_name.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class="form-group">
                 {{ form.inviter(class="form-control", placeholder=form.inviter.label.text) }}
+                {% if form.inviter.errors %}
+                    {% for error in form.inviter.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class="form-group">
                 {{ form.place_to_visit(class="form-control", placeholder=form.place_to_visit.label.text) }}
+                {% if form.place_to_visit.errors %}
+                    {% for error in form.place_to_visit.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class="form-group">
                 {{ form.time_start.label }}
                 {{ form.time_start(class="form-control") }}
+                {% if form.time_start.errors %}
+                    {% for error in form.time_start.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class="form-group">
                 {{ form.time_end.label }}
                 {{ form.time_end(class="form-control") }}
+                {% if form.time_end.errors %}
+                    {% for error in form.time_end.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class="form-group">
                 {{ form.purpose(class="form-control", placeholder=form.purpose.label.text) }}
+                {% if form.purpose.errors %}
+                    {% for error in form.purpose.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class="form-actions">
                 {{ form.submit(class="btn primary small") }}
                 <button type="reset" class="btn secondary small">Сбросить форму</button>
             </div>
         </form>
-        
-        <div class="form-group">
-            <p>
-                _____________________
-            </p>
-            <p>
-                СТАРАЯ ФОРМА
-            </p>
-            <p>
-                СТАРАЯ ФОРМА
-            </p>
-        </div>
-        <form @submit.prevent="submitRequest" v-if="isLoggedIn">
-            <div class="form-group">
-                <label for="fullName">ФИО посетителя:</label>
-                <input type="text" id="fullName" v-model="requestForm.fullName" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="organization">Организация:</label>
-                <input type="text" id="organization" v-model="requestForm.organization" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="invitedBy">Приглашающее лицо:</label>
-                <input type="text" id="invitedBy" v-model="requestForm.invitedBy" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="location">Место посещения:</label>
-                <select id="location" v-model="requestForm.location" required>
-                    <option value="">Выберите место посещения</option>
-                    <option v-for="location in locations" :value="location">{{ location }}</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="startDate">Дата и время начала:</label>
-                <input type="datetime-local" id="startDate" v-model="requestForm.startDate" required step="1800" min="08:00" max="18:00">
-            </div>
-            
-            <div class="form-group">
-                <label for="endDate">Дата и время окончания:</label>
-                <input type="datetime-local" id="endDate" v-model="requestForm.endDate" required step="1800">
-            </div>
-            
-            <div class="form-group">
-                <label for="purpose">Цель визита:</label>
-                <textarea id="purpose" v-model="requestForm.purpose" required></textarea>
-            </div>
-            
-            <div class="form-actions">
-                <button type="submit" class="btn primary">Отправить заявку</button>
-                <button type="reset" class="btn secondary" @click="resetForm">Сбросить</button>
-            </div>
-        </form>
-        
+
         <div v-else class="login-required">
             <p>Для создания заявки необходимо <a href="login.html">войти в систему</a>.</p>
         </div>
