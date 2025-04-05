@@ -18,7 +18,7 @@ db = SQLAlchemy(app)
 
 class Guest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    full_name = db.Column(db.String(128), nullable=False)
+    full_name = db.Column(db.Text, nullable=False)
     company_name = db.Column(db.String(128), nullable=False)
     inviter = db.Column(db.String(128), nullable=False)
     place_to_visit = db.Column(db.String(128), nullable=False)
@@ -29,11 +29,10 @@ class Guest(db.Model):
 
 
 class GuestForm(FlaskForm):
-    full_name = StringField(
-        'ФИО посетителя',
+    full_name = TextAreaField(
+        'ФИО посетителей',
         validators=[
             DataRequired(message='Обязательное поле'),
-            Length(max=128),
         ],
     )
     company_name = StringField(

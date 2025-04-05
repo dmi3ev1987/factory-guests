@@ -5,23 +5,19 @@
     <section class="request-form">
         <h2>Заявка на посещение завода</h2>
 
-        <form> 
+        <form method="POST" novalidate> 
             {{ form.csrf_token }}
             <div class="form-group">
-                {{ form.full_name.label }}
-                {{ form.full_name(placeholder="ФИО посетителя") }}
+                {{ form.full_name(class="form-control", placeholder=form.full_name.label.text) }}
             </div>
             <div class="form-group">
-                {{ form.company_name.label }}
-                {{ form.company_name(class="form-control", placeholder="Организация") }}
+                {{ form.company_name(class="form-control", placeholder=form.company_name.label.text) }}
             </div>
             <div class="form-group">
-                {{ form.inviter.label }}
-                {{ form.inviter(class="form-control", placeholder="Приглашающее лицо") }}
+                {{ form.inviter(class="form-control", placeholder=form.inviter.label.text) }}
             </div>
             <div class="form-group">
-                {{ form.place_to_visit.label }}
-                {{ form.place_to_visit(class="form-control", placeholder="Место посещения") }}
+                {{ form.place_to_visit(class="form-control", placeholder=form.place_to_visit.label.text) }}
             </div>
             <div class="form-group">
                 {{ form.time_start.label }}
@@ -32,8 +28,7 @@
                 {{ form.time_end(class="form-control") }}
             </div>
             <div class="form-group">
-                {{ form.purpose.label }}
-                {{ form.purpose(class="form-control", placeholder="Цель визита") }}
+                {{ form.purpose(class="form-control", placeholder=form.purpose.label.text) }}
             </div>
             <div class="form-actions">
                 {{ form.submit(class="btn primary small") }}
