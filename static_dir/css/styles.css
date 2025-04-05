@@ -170,6 +170,8 @@ textarea {
 .btn.primary {
     background-color: #3498db;
     color: white;
+    width: 200px;
+    height: 40px;
 }
 
 .btn.primary:hover {
@@ -179,6 +181,8 @@ textarea {
 .btn.secondary {
     background-color: #95a5a6;
     color: white;
+    width: 200px;
+    height: 40px;
 }
 
 .btn.secondary:hover {

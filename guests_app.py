@@ -67,7 +67,6 @@ class GuestForm(FlaskForm):
     )
     purpose = TextAreaField('Цель визита', validators=[DataRequired()])
     submit = SubmitField('Отправить заявку')
-    reset = SubmitField('Сбросить')
 
 
 @app.route('/')
