@@ -80,7 +80,7 @@ def index_view():
 
 
 @app.route('/request-form')
-def request_form():
+def request_form_view():
     form = GuestForm()
     return render_template('request_form.html', form=form)
 
