@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import (
@@ -77,13 +77,28 @@ class GuestForm(FlaskForm):
 
 @app.route('/')
 def index_view():
-    quantity = Guest.query.count()
-    if quantity == 0:
-        return render_template('index.html')
-    guests = Guest.query.all()
-    result = [{guest.id: guest.full_name} for guest in guests]
-    # return jsonify(result)
-    return render_template('index.html')
+    guests = Guest.query.with_entities(
+        Guest.full_name,
+        Guest.company_name,
+        Guest.inviter,
+        Guest.place_to_visit,
+        Guest.time_start,
+        Guest.time_end,
+        Guest.purpose,
+    ).all()
+    guests_list = [
+        {
+            'full_name': guest[0],
+            'company_name': guest[1],
+            'inviter': guest[2],
+            'place_to_visit': guest[3],
+            'time_start': guest[4],
+            'time_end': guest[5],
+            'purpose': guest[6],
+        }
+        for guest in guests
+    ]
+    return render_template('index.html', guests=guests_list)
 
 
 @app.route('/request-form', methods=['GET', 'POST'])

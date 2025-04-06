@@ -19,41 +19,42 @@
             <h2>Список гостей на заводе</h2>
             
             <div class="visitor-cards">
-                {% if visitors %}
-
-                <div class="visitor-card" v-for="visitor in filteredVisitors" :key="visitor.id">
-                    <h3>{{ visitor.fullName }}</h3>
-                    <div class="visitor-info">
-                        <div class="info-row">
-                            <span class="info-label">Организация:</span>
-                            <span class="info-value">{{ visitor.organization }}</span>
+                {% if guests %}
+                    {% for guest in guests %}
+                        <div class="visitor-card">
+                            <h3>{{ guest.full_name }}</h3>
+                            <div class="visitor-info">
+                                <div class="info-row">
+                                    <span class="info-label">Организация:</span>
+                                    <span class="info-value">{{ guest.company_name }}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Приглашающее лицо:</span>
+                                    <span class="info-value">{{ guest.inviter }}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Место посещения:</span>
+                                    <span class="info-value">{{ guest.place_to_visit }}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Дата начала:</span>
+                                    <span class="info-value">{{ guest.time_start.strftime('%H:%M %d.%m.%Y') if guest.time_start else '' }}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Дата окончания:</span>
+                                    <span class="info-value">{{ guest.time_end.strftime('%H:%M %d.%m.%Y') if guest.time_end else '' }}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Цель визита:</span>
+                                    <span class="info-value">{{ guest.purpose }}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="info-row">
-                            <span class="info-label">Приглашающее лицо:</span>
-                            <span class="info-value">{{ visitor.invitedBy }}</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Место посещения:</span>
-                            <span class="info-value">{{ visitor.location }}</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Дата начала:</span>
-                            <span class="info-value">{{ formatDateTime(visitor.startDate) }}</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Дата окончания:</span>
-                            <span class="info-value">{{ formatDateTime(visitor.endDate) }}</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Цель визита:</span>
-                            <span class="info-value">{{ visitor.purpose }}</span>
-                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-data">
+                        <p>Нет данных для отображения</p>
                     </div>
-                </div>
-                <div v-if="filteredVisitors.length === 0" class="no-data">
-                    <p>Нет данных для отображения</p>
-                </div>
-
                 {% endif %}
             </div>
         </div>
