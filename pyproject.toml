@@ -15,6 +15,7 @@ ignore = [
     "D101",
     "D102",
     "D103",
+    "D104",
     "D105",
     "D106",
     "D107",
@@ -45,4 +46,6 @@ ignore = [
     "DTZ005",
     # Class `Config` inherits from `object`RuffUP004
     "UP004",
+    # Module level import not at top of fileRuffE402
+    "E402",
 ]
