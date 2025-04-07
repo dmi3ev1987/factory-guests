@@ -43,4 +43,6 @@ ignore = [
     "PTH123",
     # `datetime.datetime.now()` called without a `tz` argumentRuff
     "DTZ005",
+    # Class `Config` inherits from `object`RuffUP004
+    "UP004",
 ]
