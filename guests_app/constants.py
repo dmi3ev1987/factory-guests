@@ -6,7 +6,7 @@ MAX_TEXT_LENGTH = 1000
 SUBMIT_MESSAGE = 'Отправить заявку'
 DATA_REQUIRED_MESSAGE = 'Обязательное поле'
 
-# Labals
+# Labels
 LABELS = {
     'full_name': 'ФИО посетителей',
     'company_name': 'Название организации',
