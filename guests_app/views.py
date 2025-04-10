@@ -8,26 +8,15 @@ from .models import Guest
 @app.route('/')
 def index_view():
     guests = Guest.query.with_entities(
-        Guest.full_name,
-        Guest.company_name,
-        Guest.inviter,
-        Guest.place_to_visit,
-        Guest.time_start,
-        Guest.time_end,
-        Guest.purpose,
+        Guest.full_name.label('full_name'),
+        Guest.company_name.label('company_name'),
+        Guest.inviter.label('inviter'),
+        Guest.place_to_visit.label('place_to_visit'),
+        Guest.time_start.label('time_start'),
+        Guest.time_end.label('time_end'),
+        Guest.purpose.label('purpose'),
     ).all()
-    guests_list = [
-        {
-            'full_name': guest[0],
-            'company_name': guest[1],
-            'inviter': guest[2],
-            'place_to_visit': guest[3],
-            'time_start': guest[4],
-            'time_end': guest[5],
-            'purpose': guest[6],
-        }
-        for guest in guests
-    ]
+    guests_list = [dict(guest._asdict()) for guest in guests]
     return render_template('index.html', guests=guests_list)
 
 
