@@ -6,29 +6,31 @@ class PassRequest(db.Model):
     """Заявка на посещение."""
 
     id = db.Column(db.Integer, primary_key=True)
+
     guest_full_name_id = db.Column(
         db.Integer,
         db.ForeignKey('guest_full_name.id'),
     )
-    company_name_id = db.Column(db.Integer, db.ForeignKey('company_name.id'))
     inviter_full_name_id = db.Column(
         db.Integer,
         db.ForeignKey('inviter_full_name.id'),
     )
+    company_name_id = db.Column(db.Integer, db.ForeignKey('company_name.id'))
     place_to_visit_id = db.Column(
         db.Integer,
         db.ForeignKey('place_to_visit.id'),
     )
+
     guest_full_name = db.relationship(
         'GuestFullName',
         back_populates='pass_requests',
     )
-    company_name = db.relationship(
-        'CompanyName',
-        back_populates='pass_requests',
-    )
     inviter_full_name = db.relationship(
         'InviterFullName',
+        back_populates='pass_requests',
+    )
+    company_name = db.relationship(
+        'CompanyName',
         back_populates='pass_requests',
     )
     place_to_visit = db.relationship(

@@ -16,16 +16,71 @@ from .constants import (
 )
 
 
-class GuestForm(FlaskForm):
-    full_name = TextAreaField(
-        LABELS['full_name'],
+class PassRequestForm(FlaskForm):
+    guest_first_name = StringField(
+        LABELS['first_name'],
         validators=[
             DataRequired(message=DATA_REQUIRED_MESSAGE),
             Length(max=MAX_TEXT_LENGTH),
         ],
         render_kw={
             'class': 'form-control',
-            'placeholder': LABELS['full_name'],
+            'placeholder': LABELS['first_name'],
+        },
+    )
+    guest_surname = StringField(
+        LABELS['surname'],
+        validators=[
+            DataRequired(message=DATA_REQUIRED_MESSAGE),
+            Length(max=MAX_TEXT_LENGTH),
+        ],
+        render_kw={
+            'class': 'form-control',
+            'placeholder': LABELS['surname'],
+        },
+    )
+    guest_patronymic = StringField(
+        LABELS['patronymic'],
+        validators=[
+            DataRequired(message=DATA_REQUIRED_MESSAGE),
+            Length(max=MAX_TEXT_LENGTH),
+        ],
+        render_kw={
+            'class': 'form-control',
+            'placeholder': LABELS['patronymic'],
+        },
+    )
+    inviter_first_name = StringField(
+        LABELS['first_name'],
+        validators=[
+            DataRequired(message=DATA_REQUIRED_MESSAGE),
+            Length(max=MAX_STR_LENGTH),
+        ],
+        render_kw={
+            'class': 'form-control',
+            'placeholder': LABELS['first_name'],
+        },
+    )
+    inviter_surname = StringField(
+        LABELS['surname'],
+        validators=[
+            DataRequired(message=DATA_REQUIRED_MESSAGE),
+            Length(max=MAX_STR_LENGTH),
+        ],
+        render_kw={
+            'class': 'form-control',
+            'placeholder': LABELS['surname'],
+        },
+    )
+    inviter_patronymic = StringField(
+        LABELS['patronymic'],
+        validators=[
+            DataRequired(message=DATA_REQUIRED_MESSAGE),
+            Length(max=MAX_STR_LENGTH),
+        ],
+        render_kw={
+            'class': 'form-control',
+            'placeholder': LABELS['patronymic'],
         },
     )
     company_name = StringField(
@@ -37,17 +92,6 @@ class GuestForm(FlaskForm):
         render_kw={
             'class': 'form-control',
             'placeholder': LABELS['company_name'],
-        },
-    )
-    inviter = StringField(
-        LABELS['inviter'],
-        validators=[
-            DataRequired(message=DATA_REQUIRED_MESSAGE),
-            Length(max=MAX_STR_LENGTH),
-        ],
-        render_kw={
-            'class': 'form-control',
-            'placeholder': LABELS['inviter'],
         },
     )
     place_to_visit = StringField(
