@@ -44,6 +44,16 @@ flask shell
 >>> quit()
 ```
 
+## Работа с миграциями
+
+```
+flask db init  # Создать репозиторий сценариев миграций.
+
+flask db migrate -m "Name of mirgration"  # Создать миграции.
+
+flask db upgrade  # Применить миграции.
+```
+
 
 ### Автор проекта
 
