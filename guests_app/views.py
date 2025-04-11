@@ -2,19 +2,19 @@ from flask import render_template
 
 from . import app, db
 from .forms import GuestForm
-from .models import Guest
+from .models import PassRequest
 
 
 @app.route('/')
 def index_view():
-    guests = Guest.query.with_entities(
-        Guest.full_name.label('full_name'),
-        Guest.company_name.label('company_name'),
-        Guest.inviter.label('inviter'),
-        Guest.place_to_visit.label('place_to_visit'),
-        Guest.time_start.label('time_start'),
-        Guest.time_end.label('time_end'),
-        Guest.purpose.label('purpose'),
+    guests = PassRequest.query.with_entities(
+        PassRequest.guest_full_name.label('guest_full_name'),
+        PassRequest.company_name.label('company_name'),
+        PassRequest.inviter_full_name.label('inviter_full_name'),
+        PassRequest.place_to_visit.label('place_to_visit'),
+        PassRequest.time_start.label('time_start'),
+        PassRequest.time_end.label('time_end'),
+        PassRequest.purpose.label('purpose'),
     ).all()
     guests_list = [dict(guest._asdict()) for guest in guests]
     return render_template('index.html', guests=guests_list)
