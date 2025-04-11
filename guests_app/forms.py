@@ -24,7 +24,7 @@ class PassRequestForm(FlaskForm):
             Length(max=MAX_TEXT_LENGTH),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-name',
             'placeholder': LABELS['first_name'],
         },
     )
@@ -35,7 +35,7 @@ class PassRequestForm(FlaskForm):
             Length(max=MAX_TEXT_LENGTH),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-name',
             'placeholder': LABELS['surname'],
         },
     )
@@ -46,7 +46,7 @@ class PassRequestForm(FlaskForm):
             Length(max=MAX_TEXT_LENGTH),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-name',
             'placeholder': LABELS['patronymic'],
         },
     )
@@ -57,7 +57,7 @@ class PassRequestForm(FlaskForm):
             Length(max=MAX_STR_LENGTH),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-name',
             'placeholder': LABELS['first_name'],
         },
     )
@@ -68,7 +68,7 @@ class PassRequestForm(FlaskForm):
             Length(max=MAX_STR_LENGTH),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-name',
             'placeholder': LABELS['surname'],
         },
     )
@@ -79,7 +79,7 @@ class PassRequestForm(FlaskForm):
             Length(max=MAX_STR_LENGTH),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-name',
             'placeholder': LABELS['patronymic'],
         },
     )
