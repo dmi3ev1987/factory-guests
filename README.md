@@ -29,16 +29,17 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-## Создать БД sqlite
+## Создать БД sqlite (вручную)
 
 ```
 flask shell
 ```
 
-После вход в shell вести команды по очереди:
+После входа в shell вести команды по очереди:
 
 ```
 >>> from guests_app import db
+>>> db.drop_all() # если нужно удалить предыдушую БД
 >>> db.create_all()
 >>> quit()
 ```
