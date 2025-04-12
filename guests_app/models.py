@@ -20,14 +20,17 @@ class BaseMixin(db.Model):
     def _get_tablename(cls):
         """Конвертирует имя класса из CamelCase в snake_case.
 
-        Например, для класса GuestFullName вернет 'guest_full_name'.
+        Добавляет 's' в конец имени класса, чтобы получить имя таблицы в
+        множественном числе.
+        Например, для класса GuestFullName вернет 'guest_full_names'.
         """
-        return ''.join(
+        name = ''.join(
             [
                 '_' + character.lower() if character.isupper() else character
                 for character in cls.__name__
             ],
         ).lstrip('_')
+        return f'{name}s'
 
     @declared_attr
     def __tablename__(cls):
@@ -97,6 +100,8 @@ class PlaceToVisit(BaseMixin):
         place: название места.
     """
 
+    __tablename__ = 'places_to_visit'
+
     place = db.Column(db.String(MAX_STR_LENGTH), nullable=False)
 
     pass_requests = db.relationship(
@@ -127,16 +132,16 @@ class PassRequest(BaseMixin):
 
     guest_full_name_id = db.Column(
         db.Integer,
-        db.ForeignKey('guest_full_name.id'),
+        db.ForeignKey('guest_full_names.id'),
     )
     inviter_full_name_id = db.Column(
         db.Integer,
-        db.ForeignKey('inviter_full_name.id'),
+        db.ForeignKey('inviter_full_names.id'),
     )
-    company_name_id = db.Column(db.Integer, db.ForeignKey('company_name.id'))
+    company_name_id = db.Column(db.Integer, db.ForeignKey('company_names.id'))
     place_to_visit_id = db.Column(
         db.Integer,
-        db.ForeignKey('place_to_visit.id'),
+        db.ForeignKey('places_to_visit.id'),
     )
 
     guest_full_name = db.relationship(
