@@ -25,7 +25,7 @@ def index_view():
             InviterFullName.first_name.label('inviter_first_name'),
             InviterFullName.surname.label('inviter_surname'),
             InviterFullName.patronymic.label('inviter_patronymic'),
-            CompanyName.company_name.label('company_name'),
+            CompanyName.name.label('company_name'),
             PlaceToVisit.place.label('place_to_visit'),
             PassRequest.time_start,
             PassRequest.time_end,
@@ -64,7 +64,7 @@ def request_form_view():
         db.session.add(place_to_visit)
         db.session.commit()
 
-        company_name = CompanyName(company_name=form.company_name.data)
+        company_name = CompanyName(name=form.company_name.data)
         db.session.add(company_name)
         db.session.commit()
 
