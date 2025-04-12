@@ -22,7 +22,7 @@
                 {% if guests %}
                     {% for guest in guests %}
                         <div class="visitor-card">
-                            <h3>{{ guest.full_name }}</h3>
+                            <h3>{{ guest.guest_first_name }} {{ guest.guest_surname }} {{ guest.guest_patronymic }}</h3>
                             <div class="visitor-info">
                                 <div class="info-row">
                                     <span class="info-label">Организация:</span>
@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="info-row">
                                     <span class="info-label">Приглашающее лицо:</span>
-                                    <span class="info-value">{{ guest.inviter }}</span>
+                                    <span class="info-value">{{ guest.inviter_first_name }} {{ guest.inviter_surname }} {{ guest.inviter_patronymic }}</span>
                                 </div>
                                 <div class="info-row">
                                     <span class="info-label">Место посещения:</span>

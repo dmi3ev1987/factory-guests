@@ -1,6 +1,9 @@
 [tool.ruff]
 # Allow lines to be as long as 79.
 line-length = 79
+exclude = [
+    "migrations/"
+]
 
 [tool.ruff.format]
 quote-style = "single"
@@ -29,6 +32,8 @@ ignore = [
     "ANN101",
     "ANN201",
     "ANN204",
+    # Missing return type annotation for classmethod
+    "ANN206",
     # mutable class attributes should be annotated
     "RUF012",
     # cirylic language
@@ -48,4 +53,6 @@ ignore = [
     "UP004",
     # Module level import not at top of fileRuffE402
     "E402",
+    # First argument of a method should be named `self`RuffN805
+    "N805",
 ]

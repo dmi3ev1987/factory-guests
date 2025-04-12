@@ -8,9 +8,10 @@ DATA_REQUIRED_MESSAGE = 'Обязательное поле'
 
 # Labels
 LABELS = {
-    'full_name': 'ФИО посетителей',
+    'first_name': 'Имя',
+    'surname': 'Фамилия',
+    'patronymic': 'Отчество',
     'company_name': 'Название организации',
-    'inviter': 'Приглашающее лицо',
     'place_to_visit': 'Место посещения',
     'time_start': 'Дата и время начала посещения',
     'time_end': 'Дата и время окончания посещения',

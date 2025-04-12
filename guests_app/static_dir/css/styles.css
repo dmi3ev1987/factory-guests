@@ -128,8 +128,18 @@ tr:hover {
     margin-bottom: 1.5rem;
 }
 
+.form-group-inline {
+    display: flex;
+    gap: 1rem;
+}
+
 .form-control {
     width: 50%;
+    height: 40px;
+}
+
+.form-control-name {
+    width: 25%;
 }
 
 label {
