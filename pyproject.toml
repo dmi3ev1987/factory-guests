@@ -1,6 +1,9 @@
 [tool.ruff]
 # Allow lines to be as long as 79.
 line-length = 79
+exclude = [
+    "migrations/"
+]
 
 [tool.ruff.format]
 quote-style = "single"

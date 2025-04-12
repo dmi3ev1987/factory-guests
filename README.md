@@ -54,6 +54,22 @@ flask db migrate -m "Name of mirgration"  # Создать миграции.
 flask db upgrade  # Применить миграции.
 ```
 
+## Работа с Ruff linter and formatter
+
+```
+# Check and auto-fix all files in the project:
+ruff check --fix
+
+# Check/fix a specific file:
+ruff check --fix path/to/file.py
+
+# Preview fixes before applying:
+ruff check --fix --diff
+
+# For formatting, use:
+ruff format
+```
+
 
 ### Автор проекта
 
