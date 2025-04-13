@@ -5,15 +5,18 @@ from wtforms import (
     SubmitField,
     TextAreaField,
 )
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, ValidationError
 
 from .constants import (
     DATA_REQUIRED_MESSAGE,
+    ERROR_MESSAGES,
     LABELS,
     MAX_STR_LENGTH,
     MAX_TEXT_LENGTH,
     SUBMIT_MESSAGE,
+    SUBMIT_REGISTRATION,
 )
+from .models import User
 
 
 class PassRequestForm(FlaskForm):
@@ -134,3 +137,36 @@ class PassRequestForm(FlaskForm):
         SUBMIT_MESSAGE,
         render_kw={'class': 'btn primary small'},
     )
+
+
+class RegistrationForm(FlaskForm):
+    email = StringField(
+        LABELS['email'],
+        validators=[
+            DataRequired(message=DATA_REQUIRED_MESSAGE),
+            Length(max=MAX_STR_LENGTH),
+        ],
+        render_kw={
+            'class': 'form-control',
+            'placeholder': LABELS['email'],
+        },
+    )
+    password = StringField(
+        LABELS['password'],
+        validators=[
+            DataRequired(message=DATA_REQUIRED_MESSAGE),
+            Length(max=MAX_STR_LENGTH),
+        ],
+        render_kw={
+            'class': 'form-control',
+            'placeholder': LABELS['password'],
+        },
+    )
+    submit = SubmitField(
+        SUBMIT_REGISTRATION,
+        render_kw={'class': 'btn primary small'},
+    )
+
+    def validate_email(self, email):
+        if User.query.filter_by(email=email.data).first():
+            raise ValidationError(ERROR_MESSAGES['email_exists'])
