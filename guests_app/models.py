@@ -1,7 +1,27 @@
+from flask_login import UserMixin
 from sqlalchemy.ext.declarative import declared_attr
 
-from . import db
+from . import bcrypt, db
 from .constants import MAX_STR_LENGTH
+
+
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(
+        db.String(MAX_STR_LENGTH),
+        nullable=False,
+        unique=True,
+    )
+    password = db.Column(db.String(MAX_STR_LENGTH), nullable=False)
+    is_approver = db.Column(db.Boolean, default=False, nullable=False)
+
+    def set_password(self, password):
+        """Хэширует пароль пользователя."""
+        self.password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+    def check_password(self, password):
+        """Проверяет пароль пользователя."""
+        return bcrypt.check_password_hash(self.password, password)
 
 
 class BaseMixin(db.Model):
