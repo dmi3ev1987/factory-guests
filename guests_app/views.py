@@ -1,6 +1,6 @@
 from flask import render_template
 
-from . import app, db
+from . import app, db, login_manager
 from .forms import PassRequestForm
 from .models import (
     CompanyName,
@@ -8,7 +8,14 @@ from .models import (
     InviterFullName,
     PassRequest,
     PlaceToVisit,
+    User,
 )
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    """Загрузка пользователя по идентификатору."""
+    return User.query.get(int(user_id))
 
 
 @app.route('/')
