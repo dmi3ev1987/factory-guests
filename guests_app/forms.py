@@ -5,7 +5,13 @@ from wtforms import (
     SubmitField,
     TextAreaField,
 )
-from wtforms.validators import DataRequired, Email, Length, ValidationError
+from wtforms.validators import (
+    DataRequired,
+    Email,
+    EqualTo,
+    Length,
+    ValidationError,
+)
 
 from .constants import (
     DATA_REQUIRED_MESSAGE,
@@ -13,8 +19,7 @@ from .constants import (
     LABELS,
     MAX_STR_LENGTH,
     MAX_TEXT_LENGTH,
-    SUBMIT_MESSAGE,
-    SUBMIT_REGISTRATION,
+    SUBMIT,
 )
 from .models import User
 
@@ -134,12 +139,69 @@ class PassRequestForm(FlaskForm):
         },
     )
     submit = SubmitField(
-        SUBMIT_MESSAGE,
+        SUBMIT['submit_request'],
         render_kw={'class': 'btn primary small'},
     )
 
 
 class RegistrationForm(FlaskForm):
+    username = StringField(
+        LABELS['username'],
+        validators=[
+            DataRequired(message=DATA_REQUIRED_MESSAGE),
+            Length(max=MAX_STR_LENGTH),
+        ],
+        render_kw={
+            'class': 'form-control',
+            'placeholder': LABELS['username'],
+        },
+    )
+    email = StringField(
+        LABELS['email'],
+        validators=[
+            DataRequired(message=DATA_REQUIRED_MESSAGE),
+            Length(max=MAX_STR_LENGTH),
+            Email(),
+        ],
+        render_kw={
+            'class': 'form-control',
+            'placeholder': LABELS['email'],
+        },
+    )
+    password = StringField(
+        LABELS['password'],
+        validators=[
+            DataRequired(message=DATA_REQUIRED_MESSAGE),
+            Length(max=MAX_STR_LENGTH),
+        ],
+        render_kw={
+            'class': 'form-control',
+            'placeholder': LABELS['password'],
+        },
+    )
+    confirm_password = StringField(
+        'Подтвердите пароль',
+        validators=[
+            DataRequired(message=DATA_REQUIRED_MESSAGE),
+            Length(max=MAX_STR_LENGTH),
+            EqualTo('password', message='Пароли не совпадают'),
+        ],
+        render_kw={
+            'class': 'form-control',
+            'placeholder': 'Подтвердите пароль',
+        },
+    )
+    submit = SubmitField(
+        SUBMIT['submit_registration'],
+        render_kw={'class': 'btn primary small'},
+    )
+
+    def validate_email(self, email):
+        if User.query.filter_by(email=email.data).first():
+            raise ValidationError(ERROR_MESSAGES['email_exists'])
+
+
+class LoginForm(FlaskForm):
     email = StringField(
         LABELS['email'],
         validators=[
@@ -164,10 +226,6 @@ class RegistrationForm(FlaskForm):
         },
     )
     submit = SubmitField(
-        SUBMIT_REGISTRATION,
+        SUBMIT['submit_login'],
         render_kw={'class': 'btn primary small'},
     )
-
-    def validate_email(self, email):
-        if User.query.filter_by(email=email.data).first():
-            raise ValidationError(ERROR_MESSAGES['email_exists'])
