@@ -5,7 +5,7 @@ from wtforms import (
     SubmitField,
     TextAreaField,
 )
-from wtforms.validators import DataRequired, Length, ValidationError
+from wtforms.validators import DataRequired, Email, Length, ValidationError
 
 from .constants import (
     DATA_REQUIRED_MESSAGE,
@@ -145,6 +145,7 @@ class RegistrationForm(FlaskForm):
         validators=[
             DataRequired(message=DATA_REQUIRED_MESSAGE),
             Length(max=MAX_STR_LENGTH),
+            Email(),
         ],
         render_kw={
             'class': 'form-control',
