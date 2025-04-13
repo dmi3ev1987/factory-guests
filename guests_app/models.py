@@ -1,83 +1,12 @@
+from os import getenv;
+
 from flask_login import UserMixin
-from sqlalchemy.ext.declarative import declared_attr
 
 from . import bcrypt, db
 from .constants import MAX_STR_LENGTH
+from .mixins import BaseMixin, CreateUpdateMixin, FullNameMixin
 
-
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(
-        db.String(MAX_STR_LENGTH),
-        nullable=False,
-        unique=True,
-    )
-    password = db.Column(db.String(MAX_STR_LENGTH), nullable=False)
-    is_approver = db.Column(db.Boolean, default=False, nullable=False)
-
-    def set_password(self, password):
-        """Хэширует пароль пользователя."""
-        self.password = bcrypt.generate_password_hash(password).decode('utf-8')
-
-    def check_password(self, password):
-        """Проверяет пароль пользователя."""
-        return bcrypt.check_password_hash(self.password, password)
-
-
-class BaseMixin(db.Model):
-    """Базовая модель для всех моделей приложения.
-
-    Поля:
-        id: уникальный идентификатор и первичный ключ;
-        created_at: дата и время создания записи;
-        updated_at: дата и время последнего обновления записи;
-        updated_by: кто обновил запись.
-    """
-
-    __abstract__ = True
-
-    @classmethod
-    def _get_tablename(cls):
-        """Конвертирует имя класса из CamelCase в snake_case.
-
-        Добавляет 's' в конец имени класса, чтобы получить имя таблицы в
-        множественном числе.
-        Например, для класса GuestFullName вернет 'guest_full_names'.
-        """
-        name = ''.join(
-            [
-                '_' + character.lower() if character.isupper() else character
-                for character in cls.__name__
-            ],
-        ).lstrip('_')
-        return f'{name}s'
-
-    @declared_attr
-    def __tablename__(cls):
-        """Возвращает имя таблицы для модели."""
-        return cls._get_tablename()
-
-    id = db.Column(db.Integer, primary_key=True)
-    created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
-    updated_at = db.Column(db.DateTime, nullable=True, onupdate=db.func.now())
-    updated_by = db.Column(db.String(MAX_STR_LENGTH), nullable=True)
-
-
-class FullNameMixin(BaseMixin):
-    """Миксин для хранения ФИО.
-
-    Поля:
-        id: уникальный идентификатор;
-        first_name: имя;
-        surname: фамилия;
-        patronymic: отчество.
-    """
-
-    __abstract__ = True
-
-    first_name = db.Column(db.String(MAX_STR_LENGTH), nullable=False)
-    surname = db.Column(db.String(MAX_STR_LENGTH), nullable=False)
-    patronymic = db.Column(db.String(MAX_STR_LENGTH), nullable=True)
+EMAIL_DOMAIN = getenv('EMAIL_DOMAIN')
 
 
 class GuestFullName(FullNameMixin):
@@ -130,7 +59,7 @@ class PlaceToVisit(BaseMixin):
     )
 
 
-class PassRequest(BaseMixin):
+class PassRequest(CreateUpdateMixin, BaseMixin):
     """Заявка на посещение.
 
     Поля:
@@ -185,3 +114,26 @@ class PassRequest(BaseMixin):
     time_end = db.Column(db.DateTime, nullable=False)
     purpose = db.Column(db.Text, nullable=False)
     approved = db.Column(db.Boolean, default=None, nullable=True)
+
+
+class User(BaseMixin, UserMixin, db.Model):
+    username = db.Column(
+        db.String(MAX_STR_LENGTH),
+        nullable=False,
+        unique=True,
+    )
+    password = db.Column(db.String(MAX_STR_LENGTH), nullable=False)
+    email = db.Column(db.String(MAX_STR_LENGTH), nullable=False, unique=True)
+    is_approver = db.Column(db.Boolean, default=False, nullable=False)
+
+    def set_password(self, password):
+        """Хэширует пароль пользователя."""
+        self.password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+    def check_password(self, password):
+        """Проверяет пароль пользователя."""
+        return bcrypt.check_password_hash(self.password, password)
+
+    def check_email(self, email):
+        """Проверяет корпоративную почту пользователя."""
+        return self.email.split('@')[-1] == EMAIL_DOMAIN
