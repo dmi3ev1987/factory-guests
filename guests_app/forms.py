@@ -1,3 +1,5 @@
+import re
+
 from flask_wtf import FlaskForm
 from wtforms import (
     DateTimeLocalField,
@@ -19,6 +21,8 @@ from .constants import (
     LABELS,
     MAX_STR_LENGTH,
     MAX_TEXT_LENGTH,
+    MAX_USERNAME_LENGTH,
+    MIN_USERNAME_LENGTH,
     SUBMIT,
 )
 from .models import User
@@ -199,6 +203,17 @@ class RegistrationForm(FlaskForm):
     def validate_email(self, email):
         if User.query.filter_by(email=email.data).first():
             raise ValidationError(ERROR_MESSAGES['email_exists'])
+
+    def validate_username(self, username):
+        if (
+            len(username.data) < MIN_USERNAME_LENGTH
+            or len(username.data) > MAX_USERNAME_LENGTH
+        ):
+            raise ValidationError(ERROR_MESSAGES['username_length'])
+        if not re.fullmatch(r'^[A-Za-z0-9.]+$', username.data):
+            raise ValidationError(ERROR_MESSAGES['username'])
+        if User.query.filter_by(username=username.data).first():
+            raise ValidationError(ERROR_MESSAGES['username_exists'])
 
 
 class LoginForm(FlaskForm):
