@@ -1,4 +1,4 @@
-from os import getenv;
+from os import getenv
 
 from flask_login import UserMixin
 
