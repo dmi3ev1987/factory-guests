@@ -179,6 +179,7 @@ textarea {
 .btn.small {
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
+    align-items: center;
 }
 
 .btn.primary {
@@ -224,6 +225,15 @@ textarea {
 .login-required, .access-denied {
     text-align: center;
     padding: 2rem;
+}
+
+.login-form, .register-form {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .status-pending {

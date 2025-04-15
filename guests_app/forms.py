@@ -3,6 +3,7 @@ import re
 from flask_wtf import FlaskForm
 from wtforms import (
     DateTimeLocalField,
+    PasswordField,
     StringField,
     SubmitField,
     TextAreaField,
@@ -172,7 +173,7 @@ class RegistrationForm(FlaskForm):
             'placeholder': LABELS['email'],
         },
     )
-    password = StringField(
+    password = PasswordField(
         LABELS['password'],
         validators=[
             DataRequired(message=DATA_REQUIRED_MESSAGE),
@@ -183,7 +184,7 @@ class RegistrationForm(FlaskForm):
             'placeholder': LABELS['password'],
         },
     )
-    confirm_password = StringField(
+    confirm_password = PasswordField(
         'Подтвердите пароль',
         validators=[
             DataRequired(message=DATA_REQUIRED_MESSAGE),
@@ -217,19 +218,18 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField(
-        LABELS['email'],
+    username = StringField(
+        LABELS['username'],
         validators=[
             DataRequired(message=DATA_REQUIRED_MESSAGE),
             Length(max=MAX_STR_LENGTH),
-            Email(),
         ],
         render_kw={
             'class': 'form-control',
-            'placeholder': LABELS['email'],
+            'placeholder': LABELS['username'],
         },
     )
-    password = StringField(
+    password = PasswordField(
         LABELS['password'],
         validators=[
             DataRequired(message=DATA_REQUIRED_MESSAGE),

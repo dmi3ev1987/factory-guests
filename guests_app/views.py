@@ -1,7 +1,7 @@
 from flask import render_template
 
 from . import app, db, login_manager
-from .forms import PassRequestForm
+from .forms import LoginForm, PassRequestForm
 from .models import (
     CompanyName,
     GuestFullName,
@@ -88,3 +88,9 @@ def request_form_view():
         db.session.commit()
         return 'Заявка отправлена'
     return render_template('request_form.html', form=form)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login_view():
+    form = LoginForm()
+    return render_template('login.html', form=form)

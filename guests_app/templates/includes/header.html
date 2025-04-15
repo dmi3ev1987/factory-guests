@@ -20,7 +20,14 @@
                     </a>
                 </li>
                 <li><a href="approval.html">Одобрение заявок</a></li>
-                <li v-if="!isLoggedIn"><a href="login.html">Вход</a></li>
+                <li>
+                    <a
+                        href="{{ url_for('login_view') }}"
+                        class="{% if request.path == url_for('login_view') %}active{% endif %}"
+                    >
+                        Вход
+                    </a>
+                </li>
                 <li v-if="isLoggedIn"><a href="#" @click="logout">Выход</a></li>
             </ul>
         </nav>
