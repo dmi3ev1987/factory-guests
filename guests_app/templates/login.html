@@ -31,15 +31,17 @@
                 {{ form.submit }}
             </div>
 
-            <div class="form-group">
-                <a
-                    href="{{ url_for('index_view') }}"
-                    class="btn secondary small"
-                >
-                    Зарегистрироваться
-                </a>
+            <div class="register-link">
+                <p>Еще не зарегистрированы?<br>
+                    Пройдите по ссылке
+                    <a
+                        href="{{ url_for('index_view') }}"
+                        class=""
+                    >
+                        зарегистрироваться.
+                    </a>
+                </p>
             </div>
-
         </form>
 
     </section>

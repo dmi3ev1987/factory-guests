@@ -225,7 +225,7 @@ class LoginForm(FlaskForm):
             Length(max=MAX_STR_LENGTH),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-center',
             'placeholder': LABELS['username'],
         },
     )
@@ -236,11 +236,11 @@ class LoginForm(FlaskForm):
             Length(max=MAX_STR_LENGTH),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-center',
             'placeholder': LABELS['password'],
         },
     )
     submit = SubmitField(
         SUBMIT['submit_login'],
-        render_kw={'class': 'btn primary small'},
+        render_kw={'class': 'btn primary small login'},
     )
