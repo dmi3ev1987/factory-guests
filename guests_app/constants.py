@@ -13,6 +13,7 @@ SUBMIT = {
 DATA_REQUIRED_MESSAGE = 'Обязательное поле'
 FLASH_MESSAGES = {
     'login_error': 'Неправильный логин или пароль',
+    'register_success': 'Вы успешно зарегистрировались',
 }
 
 # Labels

@@ -112,5 +112,6 @@ def register_view():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        return 'Пользователь зарегистрирован'
+        flash(FLASH_MESSAGES['registration_success'], 'success')
+        return redirect(url_for('login_view'))
     return render_template('register.html', form=form)
