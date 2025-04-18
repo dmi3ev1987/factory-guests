@@ -1,7 +1,7 @@
 from flask import render_template
 
 from . import app, db, login_manager
-from .forms import LoginForm, PassRequestForm
+from .forms import LoginForm, PassRequestForm, RegistrationForm
 from .models import (
     CompanyName,
     GuestFullName,
@@ -94,3 +94,9 @@ def request_form_view():
 def login_view():
     form = LoginForm()
     return render_template('login.html', form=form)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register_view():
+    form = RegistrationForm()
+    return render_template('register.html', form=form)

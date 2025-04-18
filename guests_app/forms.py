@@ -157,7 +157,7 @@ class RegistrationForm(FlaskForm):
             Length(max=MAX_STR_LENGTH),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-center',
             'placeholder': LABELS['username'],
         },
     )
@@ -169,7 +169,7 @@ class RegistrationForm(FlaskForm):
             Email(),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-center',
             'placeholder': LABELS['email'],
         },
     )
@@ -180,7 +180,7 @@ class RegistrationForm(FlaskForm):
             Length(max=MAX_STR_LENGTH),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-center',
             'placeholder': LABELS['password'],
         },
     )
@@ -192,13 +192,13 @@ class RegistrationForm(FlaskForm):
             EqualTo('password', message='Пароли не совпадают'),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-center',
             'placeholder': 'Подтвердите пароль',
         },
     )
     submit = SubmitField(
         SUBMIT['submit_registration'],
-        render_kw={'class': 'btn primary small'},
+        render_kw={'class': 'btn primary small form-control-center'},
     )
 
     def validate_email(self, email):
