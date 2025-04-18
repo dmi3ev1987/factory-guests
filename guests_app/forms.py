@@ -185,7 +185,7 @@ class RegistrationForm(FlaskForm):
         },
     )
     confirm_password = PasswordField(
-        'Подтвердите пароль',
+        LABELS['confirm_password'],
         validators=[
             DataRequired(message=DATA_REQUIRED_MESSAGE),
             Length(max=MAX_STR_LENGTH),
@@ -193,7 +193,7 @@ class RegistrationForm(FlaskForm):
         ],
         render_kw={
             'class': 'form-control form-control-center',
-            'placeholder': 'Подтвердите пароль',
+            'placeholder': LABELS['confirm_password'],
         },
     )
     submit = SubmitField(

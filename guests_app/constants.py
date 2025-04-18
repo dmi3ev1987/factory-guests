@@ -25,6 +25,7 @@ LABELS = {
     'username': 'Имя пользователя',
     'email': 'Электронная почта',
     'password': 'Пароль',
+    'confirm_password': 'Подтвердите пароль',
 }
 
 # Error messages
