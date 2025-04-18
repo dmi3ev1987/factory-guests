@@ -1,6 +1,8 @@
-from flask import render_template
+from flask import flash, redirect, render_template, url_for
+from flask_login import login_user
 
 from . import app, db, login_manager
+from .constants import FLASH_MESSAGES
 from .forms import LoginForm, PassRequestForm, RegistrationForm
 from .models import (
     CompanyName,
@@ -93,6 +95,12 @@ def request_form_view():
 @app.route('/login', methods=['GET', 'POST'])
 def login_view():
     form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user)
+            return redirect(url_for('index_view'))
+        flash(FLASH_MESSAGES['login_error'], 'error')
     return render_template('login.html', form=form)
 
 

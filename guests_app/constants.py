@@ -11,6 +11,9 @@ SUBMIT = {
     'submit_login': 'Войти',
 }
 DATA_REQUIRED_MESSAGE = 'Обязательное поле'
+FLASH_MESSAGES = {
+    'login_error': 'Неправильный логин или пароль',
+}
 
 # Labels
 LABELS = {
