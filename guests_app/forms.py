@@ -1,5 +1,3 @@
-import re
-
 from flask_wtf import FlaskForm
 from wtforms import (
     DateTimeLocalField,
@@ -13,21 +11,22 @@ from wtforms.validators import (
     Email,
     EqualTo,
     Length,
-    ValidationError,
 )
 
 from .constants import (
     DATA_REQUIRED_MESSAGE,
-    ERROR_MESSAGES,
     LABELS,
     MAX_STR_LENGTH,
     MAX_TEXT_LENGTH,
-    MAX_USERNAME_LENGTH,
-    MIN_USERNAME_LENGTH,
     SUBMIT,
 )
-from .models import User
-from .validators import validate_username_not_exists
+from .validators import (
+    validate_email_exists,
+    validate_email_is_corporate,
+    validate_username,
+    validate_username_exists,
+    validate_username_not_exists,
+)
 
 
 class PassRequestForm(FlaskForm):
@@ -156,6 +155,8 @@ class RegistrationForm(FlaskForm):
         validators=[
             DataRequired(message=DATA_REQUIRED_MESSAGE),
             Length(max=MAX_STR_LENGTH),
+            validate_username,
+            validate_username_exists,
         ],
         render_kw={
             'class': 'form-control form-control-center',
@@ -168,6 +169,8 @@ class RegistrationForm(FlaskForm):
             DataRequired(message=DATA_REQUIRED_MESSAGE),
             Length(max=MAX_STR_LENGTH),
             Email(),
+            validate_email_is_corporate,
+            validate_email_exists,
         ],
         render_kw={
             'class': 'form-control form-control-center',
@@ -201,21 +204,6 @@ class RegistrationForm(FlaskForm):
         SUBMIT['submit_registration'],
         render_kw={'class': 'btn primary small form-control-center'},
     )
-
-    def validate_email(self, email):
-        if User.query.filter_by(email=email.data).first():
-            raise ValidationError(ERROR_MESSAGES['email_exists'])
-
-    def validate_username(self, username):
-        if (
-            len(username.data) < MIN_USERNAME_LENGTH
-            or len(username.data) > MAX_USERNAME_LENGTH
-        ):
-            raise ValidationError(ERROR_MESSAGES['username_length'])
-        if not re.fullmatch(r'^[A-Za-z0-9.]+$', username.data):
-            raise ValidationError(ERROR_MESSAGES['username'])
-        if User.query.filter_by(username=username.data).first():
-            raise ValidationError(ERROR_MESSAGES['username_exists'])
 
 
 class LoginForm(FlaskForm):

@@ -1,8 +1,13 @@
+import os
+
 # Length constants
 MAX_STR_LENGTH = 128
 MAX_TEXT_LENGTH = 1000
 MIN_USERNAME_LENGTH = 3
 MAX_USERNAME_LENGTH = 20
+
+# email domain
+EMAIL_DOMAIN = os.getenv('EMAIL_DOMAIN')
 
 # Message constants
 SUBMIT = {
@@ -33,8 +38,7 @@ LABELS = {
 }
 
 # Error messages
-ERROR_MESSAGES = {
-    'email_exists': 'Пользователь с таким email уже зарегистрирован',
+VALIDATION_MESSAGES = {
     'username': (
         'Имя пользователя может состоять только из латинских букв и цифр'
     ),
@@ -42,9 +46,7 @@ ERROR_MESSAGES = {
         'Длина имени пользователя должна быть от 3 до 20 символов'
     ),
     'username_exists': 'Пользователь с таким именем уже зарегистрирован',
-}
-VALIDATION_MESSAGES = {
-    'username_exists': 'Пользователь с таким именем уже зарегистрирован',
     'username_not_exists': 'Пользователь с таким именем не зарегистрирован',
     'email_exists': 'Пользователь с таким email уже зарегистрирован',
+    'email_not_corporate': 'email должен завершаться на ' + EMAIL_DOMAIN,
 }

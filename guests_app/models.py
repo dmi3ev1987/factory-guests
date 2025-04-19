@@ -1,12 +1,8 @@
-from os import getenv
-
 from flask_login import UserMixin
 
 from . import bcrypt, db
 from .constants import MAX_STR_LENGTH
 from .mixins import BaseMixin, CreateUpdateMixin, FullNameMixin
-
-EMAIL_DOMAIN = getenv('EMAIL_DOMAIN')
 
 
 class GuestFullName(FullNameMixin):
@@ -133,7 +129,3 @@ class User(BaseMixin, UserMixin, db.Model):
     def check_password(self, password):
         """Проверяет пароль пользователя."""
         return bcrypt.check_password_hash(self.password, password)
-
-    def check_email(self, email):
-        """Проверяет корпоративную почту пользователя."""
-        return self.email.split('@')[-1] == EMAIL_DOMAIN
