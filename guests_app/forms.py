@@ -27,6 +27,7 @@ from .constants import (
     SUBMIT,
 )
 from .models import User
+from .validators import validate_username_not_exists
 
 
 class PassRequestForm(FlaskForm):
@@ -223,6 +224,7 @@ class LoginForm(FlaskForm):
         validators=[
             DataRequired(message=DATA_REQUIRED_MESSAGE),
             Length(max=MAX_STR_LENGTH),
+            validate_username_not_exists,
         ],
         render_kw={
             'class': 'form-control form-control-center',
