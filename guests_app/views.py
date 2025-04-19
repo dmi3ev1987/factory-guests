@@ -1,5 +1,5 @@
 from flask import flash, redirect, render_template, url_for
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 from . import app, db, login_manager
 from .constants import FLASH_MESSAGES
@@ -12,12 +12,6 @@ from .models import (
     PlaceToVisit,
     User,
 )
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    """Загрузка пользователя по идентификатору."""
-    return User.query.get(int(user_id))
 
 
 @app.route('/')
@@ -92,6 +86,11 @@ def request_form_view():
     return render_template('request_form.html', form=form)
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login_view():
     form = LoginForm()
@@ -104,6 +103,12 @@ def login_view():
     return render_template('login.html', form=form)
 
 
+@app.route('/logout')
+def logout_view():
+    logout_user()
+    return redirect(url_for('login_view'))
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register_view():
     form = RegistrationForm()
@@ -112,6 +117,6 @@ def register_view():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash(FLASH_MESSAGES['registration_success'], 'success')
+        flash(FLASH_MESSAGES['register_success'], 'success')
         return redirect(url_for('login_view'))
     return render_template('register.html', form=form)
