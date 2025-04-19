@@ -19,6 +19,9 @@ DATA_REQUIRED_MESSAGE = 'Обязательное поле'
 FLASH_MESSAGES = {
     'login_error': 'Неправильный логин или пароль',
     'register_success': 'Вы успешно зарегистрировались',
+    'request_success': (
+        'Ваша заявка успешно отправлена и находится на рассмотрении'
+    ),
 }
 
 # Labels

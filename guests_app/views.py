@@ -82,7 +82,7 @@ def request_form_view():
         )
         db.session.add(guest)
         db.session.commit()
-        return 'Заявка отправлена'
+        flash(FLASH_MESSAGES['request_success'], 'success')
     return render_template('request_form.html', form=form)
 
 

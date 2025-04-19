@@ -109,9 +109,13 @@
 
         {% endif %}
         
-        <div v-if="formSubmitted" class="success-message">
-            <p>Ваша заявка успешно отправлена и находится на рассмотрении.</p>
-        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="success-message">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </section>
 </main>
 {% endblock content %}
