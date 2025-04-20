@@ -4,7 +4,7 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from guests_app.admin import create_admin_panel
+from guests_app.admin import UserAdminView, create_admin_panel
 from settings import Config
 
 db = SQLAlchemy()
@@ -31,5 +31,10 @@ def create_app():
 
 app = create_app()
 admin = create_admin_panel(app)
+
+
+from .models import User
+
+admin.add_view(UserAdminView(User, db.session))
 
 from . import views  # noqa: F401
