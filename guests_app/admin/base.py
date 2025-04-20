@@ -9,3 +9,7 @@ class MyAdminIndexView(AdminIndexView):
 
     def inaccessible_callback(self, name, **kwargs):
         return redirect(url_for('login_view'))
+
+    def is_visible(self):
+        """Скрыть ссылку "Home" в админке."""
+        return False

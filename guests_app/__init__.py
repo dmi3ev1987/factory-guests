@@ -32,8 +32,16 @@ def create_app():
 app = create_app()
 
 
+from flask_admin.menu import MenuLink
+
 from . import views  # noqa: F401
 from .models import User
 
 admin = create_admin_panel(app)
-admin.add_view(UserAdminView(User, db.session))
+admin.add_view(UserAdminView(User, db.session, name='Пользователи'))
+admin.add_link(
+    MenuLink(
+        name='Вернуться на сайт',
+        url='/',
+    ),
+)
