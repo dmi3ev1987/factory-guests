@@ -30,11 +30,10 @@ def create_app():
 
 
 app = create_app()
-admin = create_admin_panel(app)
 
-
-from .models import User
-
-admin.add_view(UserAdminView(User, db.session))
 
 from . import views  # noqa: F401
+from .models import User
+
+admin = create_admin_panel(app)
+admin.add_view(UserAdminView(User, db.session))
