@@ -121,6 +121,7 @@ class User(BaseMixin, UserMixin, db.Model):
     password = db.Column(db.String(MAX_STR_LENGTH), nullable=False)
     email = db.Column(db.String(MAX_STR_LENGTH), nullable=False, unique=True)
     is_approver = db.Column(db.Boolean, default=False, nullable=False)
+    is_admin = db.Column(db.Boolean, default=False, nullable=False)
 
     def set_password(self, password):
         """Хэширует пароль пользователя."""
