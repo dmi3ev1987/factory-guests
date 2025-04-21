@@ -2,6 +2,8 @@ from flask_admin.contrib.sqla import ModelView
 from wtforms import PasswordField
 from wtforms.validators import InputRequired
 
+from guests_app.constants import DESCRIPTIONS, LABELS
+
 
 class UserAdminView(ModelView):
     column_exclude_list = ['password']
@@ -13,8 +15,8 @@ class UserAdminView(ModelView):
 
     form_extra_fields = {
         'new_password': PasswordField(
-            'Новый пароль',
-            description='Оставьте пустым, чтобы сохранить текущий пароль',
+            LABELS['new_password'],
+            description=DESCRIPTIONS['new_password'],
             validators=[],
         ),
     }
@@ -37,25 +39,25 @@ class UserAdminView(ModelView):
 
     form_args = {
         'username': {
-            'label': 'Логин',
-            'description': 'Уникальное имя пользователя',
+            'label': LABELS['username'],
+            'description': DESCRIPTIONS['username'],
         },
         'email': {
-            'label': 'Электронная почта',
-            'description': 'Действующий email адрес',
+            'label': LABELS['email'],
+            'description': DESCRIPTIONS['email'],
         },
         'password': {
-            'label': 'Пароль',
+            'label': LABELS['password'],
             'validators': [InputRequired()],
-            'description': 'Пароль должен быть надежным',
+            'description': DESCRIPTIONS['password'],
         },
         'is_admin': {
-            'label': 'Администратор',
-            'description': 'Дает полный доступ к системе',
+            'label': LABELS['is_admin'],
+            'description': DESCRIPTIONS['is_admin'],
         },
         'is_approver': {
-            'label': 'Аппрувер',
-            'description': 'Может подтверждать действия',
+            'label': LABELS['is_approver'],
+            'description': DESCRIPTIONS['is_approver'],
         },
     }
 
