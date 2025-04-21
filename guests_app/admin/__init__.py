@@ -1,15 +1,16 @@
-from flask_admin import Admin
+from flask_admin.menu import MenuLink
 
-from .base import MyAdminIndexView
-from .user_views import UserAdminView  # noqa: F401
+from guests_app import app, db
+from guests_app.admin.functions import create_admin_panel
+from guests_app.admin.user_views import UserAdminView
+from guests_app.models import User
 
+admin = create_admin_panel(app)
 
-def create_admin_panel(app):
-    """Создает панель администратора."""
-    return Admin(
-        app,
-        name='Администрирование',
-        url='/admin/',
-        template_mode='bootstrap3',
-        index_view=MyAdminIndexView(),
-    )
+admin.add_view(UserAdminView(User, db.session, name='Пользователи'))
+admin.add_link(
+    MenuLink(
+        name='Вернуться на сайт',
+        url='/',
+    ),
+)
