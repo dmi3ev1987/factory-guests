@@ -21,6 +21,9 @@
                 </li>
                 <li><a href="approval.html">Одобрение заявок</a></li>
                 {% if current_user.is_authenticated %}
+                    {% if current_user.is_admin %}
+                        <li><a href="{{ url_for('admin.index') }}">Админ панель</a></li>
+                    {% endif %}
                     <li>
                         <a href="{{ url_for('logout_view') }}">Выход</a>
                     </li>

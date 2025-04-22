@@ -6,6 +6,13 @@
         <h2>Заявка на посещение завода</h2>
 
         {% if current_user.is_authenticated %}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="success-message">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
 
             <form method="POST" novalidate> 
                 {{ form.csrf_token }}
@@ -109,13 +116,6 @@
 
         {% endif %}
         
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <p class="success-message">{{ message }}</p>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
     </section>
 </main>
 {% endblock content %}
