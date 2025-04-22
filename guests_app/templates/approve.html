@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Ободрение заявки{% endblock title %}
+{% block content %}
+
+<main>
+    <section class="approval-page card-layout">
+        <div class="sidebar">
+            <h2>Фильтры</h2>
+            <div class="filter-group">
+                <label for="search">Поиск:</label>
+                <input type="text" id="search" v-model="searchQuery" placeholder="ФИО или организация">
+            </div>
+            <div class="filter-group">
+                <label for="status-filter">Статус:</label>
+                <select id="status-filter" v-model="statusFilter">
+                    <option value="all">Все заявки</option>
+                    <option value="pending">Ожидающие</option>
+                    <option value="approved">Одобренные</option>
+                    <option value="rejected">Отклоненные</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="content">
+            <h2>Одобрение заявок на посещение</h2>
+            
+            <div v-if="isLoggedIn && isAdmin">
+                <div class="visitor-cards">
+                    <div class="visitor-card" v-for="request in filteredRequests" :key="request.id">
+                        <h3>
+                            <span v-for="(visitor, index) in request.visitors" :key="index">
+                                {{ visitor.lastName }} {{ visitor.firstName }} {{ visitor.patronymic || '' }}
+                                <br v-if="index < request.visitors.length - 1">
+                            </span>
+                        </h3>
+                        <div class="visitor-info">
+                            <div class="info-row">
+                                <span class="info-label">Организация:</span>
+                                <span class="info-value">{{ request.organization }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Приглашающее лицо:</span>
+                                <span class="info-value">{{ request.invitedBy }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Место посещения:</span>
+                                <span class="info-value">{{ request.location }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Дата начала:</span>
+                                <span class="info-value">{{ formatDateTime(request.startDate) }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Дата окончания:</span>
+                                <span class="info-value">{{ formatDateTime(request.endDate) }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Цель визита:</span>
+                                <span class="info-value">{{ request.purpose }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Статус:</span>
+                                <span class="info-value" :class="'status-' + request.status">
+                                    {{ statusLabels[request.status] }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="approval-actions" v-if="request.status === 'pending'">
+                            <button @click="approveRequest(request.id)" class="btn primary">Одобрить</button>
+                            <button @click="rejectRequest(request.id)" class="btn secondary">Отклонить</button>
+                        </div>
+                    </div>
+                    <div v-if="filteredRequests.length === 0" class="no-data">
+                        <p>Нет заявок для отображения</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div v-else-if="isLoggedIn && !isAdmin" class="access-denied">
+                <p>У вас нет доступа к этой странице. Требуются права администратора.</p>
+            </div>
+            
+            <div v-else class="login-required">
+                <p>Для просмотра этой страницы необходимо <a href="login.html">войти в систему</a>.</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock content %}
