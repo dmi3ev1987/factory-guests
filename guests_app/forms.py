@@ -141,6 +141,8 @@ class PassRequestForm(FlaskForm):
         render_kw={
             'class': 'form-control',
             'placeholder': LABELS['purpose'],
+            'rows': 3,
+            'style': 'height: auto !important;',
         },
     )
     submit = SubmitField(
