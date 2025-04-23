@@ -19,7 +19,7 @@
                         Подать заявку
                     </a>
                 </li>
-                <li><a href="approval.html">Одобрение заявок</a></li>
+                <li><a href="{{ url_for('approval_view') }}">Одобрение заявок</a></li>
                 {% if current_user.is_authenticated %}
                     {% if current_user.is_admin %}
                         <li><a href="{{ url_for('admin.index') }}">Админ панель</a></li>

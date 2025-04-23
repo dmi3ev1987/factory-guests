@@ -4,11 +4,11 @@ from guests_app import app
 from guests_app.routes.functions import get_guests
 
 
-@app.route('/')
-def index_view():
-    """Главная страница приложения."""
+@app.route('/approval')
+def approval_view():
+    """Страница одобрения заявок на пропуска."""
     guests = get_guests()
 
     guests_list = [dict(guest._asdict()) for guest in guests]
 
-    return render_template('index.html', guests=guests_list)
+    return render_template('approval.html', guests=guests_list)
