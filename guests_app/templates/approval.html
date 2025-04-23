@@ -23,28 +23,37 @@
         
         <div class="content">
             <h2>Одобрение заявок на посещение</h2>
-            
-            <div v-if="isLoggedIn && isAdmin">
-                <div class="visitor-cards">
 
-                        <div class="approval-actions" v-if="request.status === 'pending'">
-                            <button @click="approveRequest(request.id)" class="btn primary">Одобрить</button>
-                            <button @click="rejectRequest(request.id)" class="btn secondary">Отклонить</button>
+            {% if current_user.is_authenticated %}
+
+                {% if current_user.is_approver %}
+
+                    {% if guests %}
+            
+                        <div class="visitor-cards">
+                            <div class="approval-actions" v-if="request.status === 'pending'">
+                                <button @click="approveRequest(request.id)" class="btn primary">Одобрить</button>
+                                <button @click="rejectRequest(request.id)" class="btn secondary">Отклонить</button>
+                            </div>
                         </div>
+
+                    {% else %}
+                        <div class="no-data">
+                            <p>Нет данных для отображения</p>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div v-else-if="isLoggedIn && !isAdmin" class="access-denied">
+                        <p>У вас нет доступа к этой странице. Требуются права доступа для одобрения.</p>
                     </div>
-                    <div v-if="filteredRequests.length === 0" class="no-data">
-                        <p>Нет заявок для отображения</p>
-                    </div>
+                {% endif %}
+        
+            {% else %}
+                <div class="login-required">
+                    <p>Для просмотра этой страницы необходимо <a href="{{ url_for('login_view') }}">войти в систему</a>.</p>
                 </div>
-            </div>
-            
-            <div v-else-if="isLoggedIn && !isAdmin" class="access-denied">
-                <p>У вас нет доступа к этой странице. Требуются права администратора.</p>
-            </div>
-            
-            <div v-else class="login-required">
-                <p>Для просмотра этой страницы необходимо <a href="login.html">войти в систему</a>.</p>
-            </div>
+            {% endif %}
+
         </div>
     </section>
 </main>

@@ -9,6 +9,7 @@ def approval_view():
     """Страница одобрения заявок на пропуска."""
     guests = get_guests()
 
-    guests_list = [dict(guest._asdict()) for guest in guests]
+    # guests_list = [dict(guest._asdict()) for guest in guests]
+    guests_list = []
 
     return render_template('approval.html', guests=guests_list)
