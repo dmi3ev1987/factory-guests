@@ -60,6 +60,7 @@
                                         <span class="info-value">{{ guest.purpose }}</span>
                                     </div>
                                 </div>
+                                {% include 'includes/status.html' %}
                                 <!-- Добавьте кнопки для одобрения и отклонения ++ v-if -->
                                 <div class="approval-actions" v-if="request.status === 'pending'">
                                     <button @click="approveRequest(request.id)" class="btn primary small login">Одобрить</button>

@@ -1,0 +1,12 @@
+<div class="info-row">
+    <span class="info-label">Статус:</span>
+    <span class="info-value">
+        {% if guest.approved == None %}
+            <span class="text-warning fw-bold">На расмотрении</span>
+        {% elif guest.approved == true %}
+            <span class="text-success fw-bold">Одобрено</span>
+        {% else %}
+            <span class="text-danger fw-bold">Отклонено</span>
+        {% endif %}
+    </span>
+</div>
