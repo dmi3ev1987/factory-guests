@@ -3,7 +3,7 @@
     <span class="info-value">
         {% if guest.approved == None %}
             <span class="text-warning fw-bold">На расмотрении</span>
-        {% elif guest.approved == true %}
+        {% elif guest.approved %}
             <span class="text-success fw-bold">Одобрено</span>
         {% else %}
             <span class="text-danger fw-bold">Отклонено</span>
