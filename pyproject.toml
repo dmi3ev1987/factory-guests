@@ -40,6 +40,8 @@ ignore = [
     "RUF012",
     # cirylic language
     "RUF001",
+    # Did you mean `c` (LATIN SMALL LETTER C)?RuffRUF002
+    "RUF002",
     "RUF003",
     # os.path.join
     "PTH118",
