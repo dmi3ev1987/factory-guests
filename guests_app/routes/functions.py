@@ -26,6 +26,7 @@ def get_guests():
             PassRequest.time_end,
             PassRequest.purpose,
             PassRequest.approved,
+            PassRequest.id,
         )
         .all()
     )

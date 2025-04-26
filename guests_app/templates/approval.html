@@ -35,11 +35,16 @@
                             <div class="visitor-card">
                                 {% include 'includes/guest_card.html' %}
 
-                                <!-- Добавьте кнопки для одобрения и отклонения ++ v-if -->
-                                <div class="approval-actions" v-if="request.status === 'pending'">
-                                    <button @click="approveRequest(request.id)" class="btn primary small login">Одобрить</button>
-                                    <button @click="rejectRequest(request.id)" class="btn secondary small login">Отклонить</button>
-                                </div>
+                                {% if guest.approved == None %}
+                                    <div class="approval-actions">
+                                        <form action="{{ url_for('approve_request', request_id=guest.id) }}" method="POST">
+                                            <button type="submit" class="btn primary small">Одобрить</button>
+                                        </form>
+                                        <form action="{{ url_for('reject_request', request_id=guest.id) }}" method="POST">
+                                            <button type="submit" class="btn secondary small">Отклонить</button>
+                                        </form>
+                                    </div>
+                                {% endif %}
                             </div>
                         {% endfor %}
 

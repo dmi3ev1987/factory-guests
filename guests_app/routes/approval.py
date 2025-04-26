@@ -12,3 +12,15 @@ def approval_view():
     guests_list = [dict(guest._asdict()) for guest in guests]
 
     return render_template('approval.html', guests=guests_list)
+
+
+@app.route('/approve_request/<request_id>', methods=['POST'])
+def approve_request(request_id):
+    # Your approval logic here
+    return request_id
+
+
+@app.route('/reject_request/<request_id>', methods=['POST'])
+def reject_request(request_id):
+    # Your rejection logic here
+    return render_template('approval.html')
