@@ -10,13 +10,13 @@
                 {% if messages %}
                     {% for message in messages %}
                         <p class="success-message">{{ message }}</p>
-                        <a
-                            href="{{ url_for('request_view') }}"
-                            class="btn primary small"
-                        >
-                            Создать новую заявку
-                        </a>
                     {% endfor %}
+                    <a
+                        href="{{ url_for('request_view') }}"
+                        class="btn primary small"
+                    >
+                        Создать новую заявку
+                    </a>
                 {% else %}
                     {% include "includes/request_form.html" %}
                 {% endif %}
