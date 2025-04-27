@@ -19,5 +19,5 @@ init_cli_commands(app)
 
 from . import (  # noqa: F401
     admin,
-    views,
+    routes,
 )

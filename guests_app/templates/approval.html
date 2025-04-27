@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Ободрение заявки{% endblock title %}
+{% block content %}
+
+<main>
+    <section class="approval-page card-layout">
+        <div class="sidebar">
+            <h2>Фильтры</h2>
+            <div class="filter-group">
+                <label for="search">Поиск:</label>
+                <input type="text" id="search" v-model="searchQuery" placeholder="ФИО или организация">
+            </div>
+            <div class="filter-group">
+                <label for="status-filter">Статус:</label>
+                <select id="status-filter" v-model="statusFilter">
+                    <option value="all">Все заявки</option>
+                    <option value="pending">Ожидающие</option>
+                    <option value="approved">Одобренные</option>
+                    <option value="rejected">Отклоненные</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="content">
+            <h2>Одобрение заявок на посещение</h2>
+
+            {% if current_user.is_authenticated %}
+
+                {% if current_user.is_approver %}
+
+                <div class="visitor-cards">
+                    {% if guests %}
+                    
+                        {% for guest in guests %}
+                            <div class="visitor-card">
+                                {% include 'includes/guest_card.html' %}
+
+                                {% if guest.approved == None %}
+                                    <div class="approval-actions">
+                                        <form action="{{ url_for('approve_request', request_id=guest.id) }}" method="POST">
+                                            <button type="submit" class="btn primary small">Одобрить</button>
+                                        </form>
+                                        <form action="{{ url_for('reject_request', request_id=guest.id) }}" method="POST">
+                                            <button type="submit" class="btn secondary small">Отклонить</button>
+                                        </form>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                    {% else %}
+                        <div class="no-data">
+                            <p>Нет данных для отображения</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% else %}
+                    <div class="access-denied">
+                        <p>У вас нет доступа к этой странице. Требуются права доступа для одобрения.</p>
+                    </div>
+                {% endif %}
+        
+            {% else %}
+                <div class="login-required">
+                    <p>Для просмотра этой страницы необходимо <a href="{{ url_for('login_view') }}">войти в систему</a>.</p>
+                </div>
+            {% endif %}
+
+        </div>
+    </section>
+</main>
+
+{% endblock content %}
