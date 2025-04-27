@@ -35,9 +35,13 @@ ignore = [
     # Missing return type annotation for classmethod
     "ANN206",
     # mutable class attributes should be annotated
+    # Unused function argument: `form`RuffARG001
+    'ARG001',
     "RUF012",
     # cirylic language
     "RUF001",
+    # Did you mean `c` (LATIN SMALL LETTER C)?RuffRUF002
+    "RUF002",
     "RUF003",
     # os.path.join
     "PTH118",

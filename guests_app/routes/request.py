@@ -1,8 +1,9 @@
-from flask import render_template
+from flask import flash, render_template
 
-from . import app, db
-from .forms import PassRequestForm
-from .models import (
+from guests_app import app, db
+from guests_app.constants import FLASH_MESSAGES
+from guests_app.forms import PassRequestForm
+from guests_app.models import (
     CompanyName,
     GuestFullName,
     InviterFullName,
@@ -11,37 +12,8 @@ from .models import (
 )
 
 
-@app.route('/')
-def index_view():
-    guests = (
-        PassRequest.query.join(GuestFullName)
-        .join(CompanyName)
-        .join(InviterFullName)
-        .join(PlaceToVisit)
-        .with_entities(
-            GuestFullName.first_name.label('guest_first_name'),
-            GuestFullName.surname.label('guest_surname'),
-            GuestFullName.patronymic.label('guest_patronymic'),
-            InviterFullName.first_name.label('inviter_first_name'),
-            InviterFullName.surname.label('inviter_surname'),
-            InviterFullName.patronymic.label('inviter_patronymic'),
-            CompanyName.name.label('company_name'),
-            PlaceToVisit.place.label('place_to_visit'),
-            PassRequest.time_start,
-            PassRequest.time_end,
-            PassRequest.purpose,
-            PassRequest.approved,
-        )
-        .all()
-    )
-
-    guests_list = [dict(guest._asdict()) for guest in guests]
-
-    return render_template('index.html', guests=guests_list)
-
-
-@app.route('/request-form', methods=['GET', 'POST'])
-def request_form_view():
+@app.route('/request', methods=['GET', 'POST'])
+def request_view():
     form = PassRequestForm()
     if form.validate_on_submit():
         guest_full_name = GuestFullName(
@@ -79,5 +51,5 @@ def request_form_view():
         )
         db.session.add(guest)
         db.session.commit()
-        return 'Заявка отправлена'
-    return render_template('request_form.html', form=form)
+        flash(FLASH_MESSAGES['request_success'], 'success')
+    return render_template('request.html', form=form)

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Подача заявки{% endblock title %}
+{% block content %}
+<main>
+    <section class="request-form request-form-width">
+        <h2>Заявка на посещение завода</h2>
+
+        {% if current_user.is_authenticated %}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="success-message">{{ message }}</p>
+                    {% endfor %}
+                    <a
+                        href="{{ url_for('request_view') }}"
+                        class="btn primary small"
+                    >
+                        Создать новую заявку
+                    </a>
+                {% else %}
+                    {% include "includes/request_form.html" %}
+                {% endif %}
+            {% endwith %}
+        {% else %}
+            <div class="login-required">
+                <p>Для создания заявки необходимо
+                    <a href="{{ url_for('login_view') }}">
+                        войти в систему.
+                    </a>
+                </p>
+            </div>
+        {% endif %}
+    </section>
+</main>
+{% endblock content %}
