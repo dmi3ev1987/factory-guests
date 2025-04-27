@@ -359,6 +359,14 @@ footer {
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.visitor-header {
+    margin-top: 0;          /* Remove top margin */
+    margin-bottom: 8px;     /* Add small bottom margin (adjust as needed) */
+    font-weight: normal;    /* Remove bold if present */
+    font-size: 1rem;        /* Match your design */
+    text-align: left;
+}
+
 .visitor-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);

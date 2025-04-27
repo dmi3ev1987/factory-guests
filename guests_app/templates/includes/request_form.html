@@ -1,5 +1,6 @@
 <form method="POST" novalidate> 
     {{ form.csrf_token }}
+    <div class="visitor-header">Посетитель:</div>
     <div class="form-group form-group-inline">
         <div class="input-with-error">
             {{ form.guest_surname }}
@@ -34,6 +35,7 @@
             {% endfor %}
         {% endif %}
     </div>
+    <div class="visitor-header">Приглашающее :</div>
     <div class="form-group form-group-inline">
         <div class="input-with-error">
             {{ form.inviter_surname }}
