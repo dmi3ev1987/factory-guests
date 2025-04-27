@@ -103,7 +103,7 @@ class PassRequestForm(FlaskForm):
             Length(max=MAX_STR_LENGTH),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-full',
             'placeholder': LABELS['company_name'],
         },
     )
@@ -114,7 +114,7 @@ class PassRequestForm(FlaskForm):
             Length(max=MAX_STR_LENGTH),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-full',
             'placeholder': LABELS['place_to_visit'],
         },
     )
@@ -122,14 +122,14 @@ class PassRequestForm(FlaskForm):
         LABELS['time_start'],
         validators=[DataRequired(message=DATA_REQUIRED_MESSAGE)],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control-name',
         },
     )
     time_end = DateTimeLocalField(
         LABELS['time_end'],
         validators=[DataRequired(message=DATA_REQUIRED_MESSAGE)],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control-name',
         },
     )
     purpose = TextAreaField(
@@ -139,7 +139,7 @@ class PassRequestForm(FlaskForm):
             Length(max=MAX_TEXT_LENGTH),
         ],
         render_kw={
-            'class': 'form-control',
+            'class': 'form-control form-control-full',
             'placeholder': LABELS['purpose'],
             'rows': 3,
             'style': 'height: auto !important;',
@@ -147,7 +147,7 @@ class PassRequestForm(FlaskForm):
     )
     submit = SubmitField(
         SUBMIT['submit_request'],
-        render_kw={'class': 'btn primary small'},
+        render_kw={'class': 'btn primary small form-control-center'},
     )
 
 

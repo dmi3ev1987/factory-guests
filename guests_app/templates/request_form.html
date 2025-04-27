@@ -2,7 +2,7 @@
 {% block title %}Подача заявки{% endblock title %}
 {% block content %}
 <main>
-    <section class="request-form">
+    <section class="request-form request-form-width">
         <h2>Заявка на посещение завода</h2>
 
         {% if current_user.is_authenticated %}
@@ -17,26 +17,32 @@
             <form method="POST" novalidate> 
                 {{ form.csrf_token }}
                 <div class="form-group form-group-inline">
-                    {{ form.guest_surname }}
-                    {% if form.guest_surname.errors %}
-                        {% for error in form.guest_surname.errors %}
-                            <p class="text-danger">{{ error }}</p>
-                        {% endfor %}
-                    {% endif %}
-                    {{ form.guest_first_name }}
-                    {% if form.guest_first_name.errors %}
-                        {% for error in form.guest_first_name.errors %}
-                            <p class="text-danger">{{ error }}</p>
-                        {% endfor %}
-                    {% endif %}
-                    {{ form.guest_patronymic }}
-                    {% if form.guest_patronymic.errors %}
-                        {% for error in form.guest_patronymic.errors %}
-                            <p class="text-danger">{{ error }}</p>
-                        {% endfor %}
-                    {% endif %}
+                    <div class="input-with-error">
+                        {{ form.guest_surname }}
+                        {% if form.guest_surname.errors %}
+                            {% for error in form.guest_surname.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="input-with-error">
+                        {{ form.guest_first_name }}
+                        {% if form.guest_first_name.errors %}
+                            {% for error in form.guest_first_name.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="input-with-error">
+                        {{ form.guest_patronymic }}
+                        {% if form.guest_patronymic.errors %}
+                            {% for error in form.guest_patronymic.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group input-with-error">
                     {{ form.company_name }}
                     {% if form.company_name.errors %}
                         {% for error in form.company_name.errors %}
@@ -45,26 +51,32 @@
                     {% endif %}
                 </div>
                 <div class="form-group form-group-inline">
-                    {{ form.inviter_surname }}
-                    {% if form.inviter_surname.errors %}
-                        {% for error in form.inviter_surname.errors %}
-                            <p class="text-danger">{{ error }}</p>
-                        {% endfor %}
-                    {% endif %}
-                    {{ form.inviter_first_name }}
-                    {% if form.inviter_first_name.errors %}
-                        {% for error in form.inviter_first_name.errors %}
-                            <p class="text-danger">{{ error }}</p>
-                        {% endfor %}
-                    {% endif %}
-                    {{ form.inviter_patronymic }}
-                    {% if form.inviter_patronymic.errors %}
-                        {% for error in form.inviter_patronymic.errors %}
-                            <p class="text-danger">{{ error }}</p>
-                        {% endfor %}
-                    {% endif %}
+                    <div class="input-with-error">
+                        {{ form.inviter_surname }}
+                        {% if form.inviter_surname.errors %}
+                            {% for error in form.inviter_surname.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="input-with-error">
+                        {{ form.inviter_first_name }}
+                        {% if form.inviter_first_name.errors %}
+                            {% for error in form.inviter_first_name.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="input-with-error">
+                        {{ form.inviter_patronymic }}
+                        {% if form.inviter_patronymic.errors %}
+                            {% for error in form.inviter_patronymic.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group input-with-error">
                     {{ form.place_to_visit }}
                     {% if form.place_to_visit.errors %}
                         {% for error in form.place_to_visit.errors %}
@@ -72,25 +84,7 @@
                         {% endfor %}
                     {% endif %}
                 </div>
-                <div class="form-group">
-                    {{ form.time_start.label }}
-                    {{ form.time_start }}
-                    {% if form.time_start.errors %}
-                        {% for error in form.time_start.errors %}
-                            <p class="text-danger">{{ error }}</p>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.time_end.label }}
-                    {{ form.time_end }}
-                    {% if form.time_end.errors %}
-                        {% for error in form.time_end.errors %}
-                            <p class="text-danger">{{ error }}</p>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-                <div class="form-group">
+                <div class="form-group input-with-error">
                     {{ form.purpose }}
                     {% if form.purpose.errors %}
                         {% for error in form.purpose.errors %}
@@ -98,9 +92,30 @@
                         {% endfor %}
                     {% endif %}
                 </div>
-                <div class="form-actions">
+                <div class="form-group form-group-inline">
+                    <div class="form-group form-group-width">
+                        {{ form.time_start.label }}
+                        {{ form.time_start }}
+                        {% if form.time_start.errors %}
+                            {% for error in form.time_start.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group form-group-width">
+                        {{ form.time_end.label }}
+                        {{ form.time_end }}
+                        {% if form.time_end.errors %}
+                            {% for error in form.time_end.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-actions form-group-inline">
                     {{ form.submit }}
-                    <button type="reset" class="btn secondary small">Сбросить форму</button>
+                    <button type="reset" class="btn secondary small form-control-center">Сбросить форму</button>
                 </div>
             </form>
 
