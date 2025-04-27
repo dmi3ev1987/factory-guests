@@ -222,7 +222,10 @@ textarea {
 .btn.small {
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
-    align-items: center;
+    display: inline-flex;       /* Changed from default to use flexbox */
+    align-items: center;       /* Vertical centering */
+    justify-content: center;   /* Horizontal centering */
+    gap: 0.25rem;             /* Optional: space between icon and text */
 }
 
 .btn.primary.login{

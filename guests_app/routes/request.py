@@ -12,8 +12,8 @@ from guests_app.models import (
 )
 
 
-@app.route('/request-form', methods=['GET', 'POST'])
-def request_form_view():
+@app.route('/request', methods=['GET', 'POST'])
+def request_view():
     form = PassRequestForm()
     if form.validate_on_submit():
         guest_full_name = GuestFullName(
@@ -52,4 +52,4 @@ def request_form_view():
         db.session.add(guest)
         db.session.commit()
         flash(FLASH_MESSAGES['request_success'], 'success')
-    return render_template('request_form.html', form=form)
+    return render_template('request.html', form=form)
