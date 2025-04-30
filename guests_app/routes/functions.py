@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from guests_app.models import (
     CompanyName,
     GuestFullName,
@@ -7,7 +9,7 @@ from guests_app.models import (
 )
 
 
-def get_guests(approval_status='all'):
+def get_guests(approval_status='all', date='all'):
     """Получение списка заявок на посещение с учетом статуса одобрения.
 
     Args:
@@ -17,6 +19,8 @@ def get_guests(approval_status='all'):
             'approved' - одобренные заявки,
             'rejected' - отклоненные заявки,
             'pending' - ожидающие.
+
+        date (str): Дата, для которой нужно получить заявки.
 
     Returns:
         query: SQLAlchemy query object.
@@ -39,6 +43,19 @@ def get_guests(approval_status='all'):
         else:
             message = f'Неверный статус одобрения: {approval_status}'
             raise ValueError(message)
+
+    if date == 'today':
+        today_start = datetime.now().replace(
+            hour=0,
+            minute=0,
+            second=0,
+            microsecond=0,
+        )
+        today_end = today_start + timedelta(days=1)
+        query = query.filter(
+            PassRequest.time_start < today_end,
+            PassRequest.time_end > today_start,
+        )
 
     return query.with_entities(
         GuestFullName.first_name.label('guest_first_name'),
