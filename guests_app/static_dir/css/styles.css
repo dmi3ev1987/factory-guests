@@ -359,6 +359,25 @@ footer {
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.visitor-table-cards {
+    display: block;
+}
+
+.visitor-table-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.plain-link {
+    text-decoration: none;   /* Removes underline */
+    color: inherit;          /* Inherits text color from parent */
+    cursor: pointer;         /* Keeps the hand cursor on hover */
+  }
+
 .visitor-header {
     margin-top: 0;          /* Remove top margin */
     margin-bottom: 8px;     /* Add small bottom margin (adjust as needed) */
@@ -368,6 +387,11 @@ footer {
 }
 
 .visitor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.visitor-table-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
