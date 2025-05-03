@@ -120,17 +120,14 @@ th {
     font-weight: 600;
 }
 
-th:first-child {
+th:first-child, td:first-child {
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
 }
 
-th:last-child {
+th:last-child, td:last-child {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
-}
-
-th:last-child, td:last-child {
     border-right: 0px;
 }
 
@@ -371,6 +368,9 @@ footer {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
     transition: transform 0.2s, box-shadow 0.2s;
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack elements vertically */
+    height: 100%; /* Ensure card takes full height */
 }
 
 .visitor-table-cards {
@@ -453,6 +453,8 @@ footer {
     gap: 1rem;
     margin-top: 1rem;
     justify-content: center;
+    padding-top: 1rem; /* Spacing above buttons */
+    margin-top: auto; /* Pushes container to bottom */
 }
 
 .visitor-card .approval-actions button {
