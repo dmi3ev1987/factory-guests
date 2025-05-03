@@ -5,13 +5,7 @@
             <td>{{ guest.company_name }}</td>
             <td>{{ guest.inviter_surname }} {{ guest.inviter_first_name }} {{ guest.inviter_patronymic }}</td>
             <td>
-                {% if guest.approved == None %}
-                    <span class="text-warning fw-bold">На расcмотрении</span>
-                {% elif guest.approved %}
-                    <span class="text-success fw-bold">Одобрено</span>
-                {% else %}
-                    <span class="text-danger fw-bold">Отклонено</span>
-                {% endif %}
+                {% include 'includes/status.html' %}
             </td>
         </tr>
     </tbody>
