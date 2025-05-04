@@ -9,7 +9,7 @@ from guests_app.routes.functions import get_guests
 @app.route('/approval')
 def approval_view():
     """Страница одобрения заявок на пропуска."""
-    guests = get_guests(approval_status='pending')
+    guests = get_guests(approval_status='pending').all()
 
     guests_list = [dict(guest._asdict()) for guest in guests]
 

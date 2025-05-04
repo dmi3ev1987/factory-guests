@@ -10,10 +10,12 @@ from guests_app.models import (
     PassRequest,
     PlaceToVisit,
 )
+from guests_app.routes.functions import get_guests
 
 
 @app.route('/request', methods=['GET', 'POST'])
 def request_view():
+    """Создание заявки на пропуск."""
     form = PassRequestForm()
     if form.validate_on_submit():
         guest_full_name = GuestFullName(
@@ -53,3 +55,10 @@ def request_view():
         db.session.commit()
         flash(FLASH_MESSAGES['request_success'], 'success')
     return render_template('request.html', form=form)
+
+
+@app.route('/request/<int:request_id>')
+def request_detail_view(request_id):
+    """Отображение информации о заявке."""
+    guest = get_guests(request_id=request_id).first()
+    return render_template('request_detail.html', guest=guest)

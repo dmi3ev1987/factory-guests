@@ -7,7 +7,7 @@ from guests_app.routes.functions import get_guests
 @app.route('/')
 def index_view():
     """Главная страница приложения."""
-    guests = get_guests(date='today')
+    guests = get_guests(date='today').all()
 
     guests_list = [dict(guest._asdict()) for guest in guests]
 
