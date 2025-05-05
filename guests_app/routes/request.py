@@ -1,4 +1,4 @@
-from flask import flash, render_template
+from flask import flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
 
 from guests_app import app, db
@@ -72,3 +72,14 @@ def request_detail_view(request_id):
     """Отображение информации о заявке."""
     guest = get_guests(request_id=request_id).first()
     return render_template('request_detail.html', guest=guest)
+
+
+@app.route('/delete_request/<int:request_id>', methods=['POST'])
+@login_required
+def delete_request_view(request_id):
+    """Удаление заявки."""
+    guest = PassRequest.query.get_or_404(request_id)
+    db.session.delete(guest)
+    db.session.commit()
+    flash(FLASH_MESSAGES['request_deleted'], 'success')
+    return redirect(url_for('my_requests_view'))

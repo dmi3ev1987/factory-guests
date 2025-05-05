@@ -243,7 +243,7 @@ textarea {
     width: 80px;
 }
 
-.btn.primary {
+.btn.primary, .btn.edit {
     background-color: #3498db;
     color: white;
     width: 200px;
@@ -254,11 +254,27 @@ textarea {
     background-color: #2980b9;
 }
 
-.btn.secondary {
+.btn.edit {
+    background-color: #8bc34a;
+}
+
+.btn.edit:hover {
+    background-color: #7cb342;
+}
+
+.btn.secondary, .btn.delete {
     background-color: #95a5a6;
     color: white;
     width: 200px;
     height: 40px;
+}
+
+.btn.delete {
+    background-color: #e75959;
+}
+
+.btn.delete:hover {
+    background-color: #c0392b;
 }
 
 .btn.secondary:hover {
@@ -269,6 +285,7 @@ textarea {
     padding: 1rem;
     border-radius: 4px;
     margin: 1rem 0;
+    text-align: center;
 }
 
 .success-message {

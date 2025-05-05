@@ -18,7 +18,7 @@ def approval_view():
 
 @app.route('/approve_request/<request_id>', methods=['POST'])
 @login_required
-def approve_request(request_id):
+def approve_request_view(request_id):
     if current_user.is_approver:
         pass_request = PassRequest.query.get(request_id)
         pass_request.approved = True
@@ -28,7 +28,7 @@ def approve_request(request_id):
 
 @app.route('/reject_request/<request_id>', methods=['POST'])
 @login_required
-def reject_request(request_id):
+def reject_request_view(request_id):
     if current_user.is_approver:
         pass_request = PassRequest.query.get(request_id)
         pass_request.approved = False

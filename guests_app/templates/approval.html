@@ -37,10 +37,10 @@
 
                                 {% if guest.approved == None %}
                                     <div class="approval-actions">
-                                        <form action="{{ url_for('approve_request', request_id=guest.id) }}" method="POST">
+                                        <form action="{{ url_for('approve_request_view', request_id=guest.id) }}" method="POST">
                                             <button type="submit" class="btn primary small">Одобрить</button>
                                         </form>
-                                        <form action="{{ url_for('reject_request', request_id=guest.id) }}" method="POST">
+                                        <form action="{{ url_for('reject_request_view', request_id=guest.id) }}" method="POST">
                                             <button type="submit" class="btn secondary small">Отклонить</button>
                                         </form>
                                     </div>
