@@ -1,4 +1,5 @@
 from flask import flash, render_template
+from flask_login import current_user, login_required
 
 from guests_app import app, db
 from guests_app.constants import FLASH_MESSAGES
@@ -50,11 +51,20 @@ def request_view():
             time_start=form.time_start.data,
             time_end=form.time_end.data,
             purpose=form.purpose.data,
+            created_by=current_user.username,
         )
         db.session.add(guest)
         db.session.commit()
         flash(FLASH_MESSAGES['request_success'], 'success')
     return render_template('request.html', form=form)
+
+
+@app.route('/my_requests')
+@login_required
+def my_requests_view():
+    """Отображение моих заявок."""
+    guests = get_guests(creator_username=current_user.username).all()
+    return render_template('my_requests.html', guests=guests)
 
 
 @app.route('/request/<int:request_id>')

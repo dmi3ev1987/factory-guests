@@ -9,7 +9,12 @@ from guests_app.models import (
 )
 
 
-def get_guests(approval_status='all', date='all', request_id=None):
+def get_guests(
+    approval_status='all',
+    date='all',
+    request_id=None,
+    creator_username=None,
+):
     """Получение списка заявок на посещение с учетом статуса одобрения.
 
     Args:
@@ -21,6 +26,7 @@ def get_guests(approval_status='all', date='all', request_id=None):
             'pending' - ожидающие.
 
         request_id (int): ID заявки, которую нужно получить.
+        creator_username (str): Имя пользователя, создавшего заявку.
         date (str): Дата, для которой нужно получить заявки.
 
     Returns:
@@ -60,6 +66,8 @@ def get_guests(approval_status='all', date='all', request_id=None):
 
     if request_id:
         query = query.filter(PassRequest.id == request_id)
+    if creator_username:
+        query = query.filter(PassRequest.created_by == creator_username)
 
     return query.with_entities(
         GuestFullName.first_name.label('guest_first_name'),
