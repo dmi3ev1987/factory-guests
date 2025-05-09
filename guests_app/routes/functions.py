@@ -84,3 +84,8 @@ def get_guests(
         PassRequest.approved,
         PassRequest.id,
     )
+
+
+def get_pass_request_by_id(request_id):
+    """Получение заявки по ID."""
+    return PassRequest.query.get_or_404(request_id)

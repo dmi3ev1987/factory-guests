@@ -42,7 +42,8 @@
                                 {% include 'includes/guest_card.html' %}
                                 {% if guest.approved == None %}
                                     <div class="approval-actions">
-                                        <form action="{{ url_for('approve_request_view', request_id=guest.id) }}" method="POST">
+                        
+                                        <form action="{{ url_for('request_edit_view', request_id=guest.id) }}" method="POST">
                                             <button type="submit" class="btn edit small">Редактировать</button>
                                         </form>
                                             
@@ -65,7 +66,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                                            <form action="{{ url_for('delete_request_view', request_id=guest.id) }}" method="POST" class="d-inline">
+                                            <form action="{{ url_for('request_delete_view', request_id=guest.id) }}" method="POST" class="d-inline">
                                                 <button type="submit" class="btn btn-danger">Да</button>
                                             </form>
                                         </div>

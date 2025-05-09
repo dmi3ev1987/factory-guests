@@ -3,7 +3,7 @@
 {% block content %}
 <main>
     <section class="request-form request-form-width">
-        <h2>Заявка на посещение завода</h2>
+        <h2>Редактирование заявки</h2>
 
         {% if current_user.is_authenticated %}
             {% with messages = get_flashed_messages() %}
@@ -12,13 +12,13 @@
                         <p class="success-message">{{ message }}</p>
                     {% endfor %}
                     <a
-                        href="{{ url_for('request_create_view') }}"
+                        href="{{ url_for('request_view') }}"
                         class="btn primary small"
                     >
                         Создать новую заявку
                     </a>
                 {% else %}
-                    {% include "includes/request_form.html" %}
+                    {% include "includes/request_edit_form.html" %}
                 {% endif %}
             {% endwith %}
         {% else %}

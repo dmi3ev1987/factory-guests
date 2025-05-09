@@ -151,6 +151,13 @@ class PassRequestForm(FlaskForm):
     )
 
 
+class PassRequestEditForm(PassRequestForm):
+    submit = SubmitField(
+        SUBMIT['submit_edit'],
+        render_kw={'class': 'btn primary small form-control-center'},
+    )
+
+
 class RegistrationForm(FlaskForm):
     username = StringField(
         LABELS['username'],

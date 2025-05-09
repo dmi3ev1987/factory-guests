@@ -14,6 +14,7 @@ SUBMIT = {
     'submit_request': 'Отправить заявку',
     'submit_registration': 'Зарегистрироваться',
     'submit_login': 'Войти',
+    'submit_edit': 'Сохранить изменения',
 }
 DATA_REQUIRED_MESSAGE = 'Обязательное поле'
 FLASH_MESSAGES = {
@@ -23,6 +24,7 @@ FLASH_MESSAGES = {
         'Ваша заявка успешно отправлена и находится на рассмотрении'
     ),
     'request_deleted': 'Ваша заявка успешно удалена',
+    'request_updated': 'Ваша заявка успешно обновлена',
 }
 
 # Labels
