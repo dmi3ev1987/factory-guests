@@ -83,7 +83,7 @@ def request_delete_view(request_id):
     guest = PassRequest.query.get_or_404(request_id)
     db.session.delete(guest)
     db.session.commit()
-    flash(FLASH_MESSAGES['request_deleted'], 'success')
+    flash(FLASH_MESSAGES['request_deleted'], 'delete')
     return redirect(url_for('my_requests_view'))
 
 

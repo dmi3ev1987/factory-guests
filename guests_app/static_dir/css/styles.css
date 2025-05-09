@@ -281,7 +281,7 @@ textarea {
     background-color: #7f8c8d;
 }
 
-.success-message, .error-message {
+.success-message, .error-message, .delete-message {
     padding: 1rem;
     border-radius: 4px;
     margin: 1rem 0;
@@ -296,9 +296,16 @@ textarea {
 
 .error-message {
     background-color: #f8d7da;
-    color: #721c24;
+    color: #d24c59;
     border: 1px solid #f5c6cb;
 }
+
+.delete-message {
+    background-color: #f8d7da;
+    color: #c0392b;
+    border: 1px solid #f5c6cb;
+}
+
 
 .login-required, .access-denied {
     text-align: center;
