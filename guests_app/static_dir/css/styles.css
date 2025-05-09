@@ -322,8 +322,16 @@ textarea {
     text-align: center;
 }
 
-.request-form-width {
+.request-form-width, .request-detail {
     max-width: 600px;
+}
+
+.request-detail {
+    margin: 0 auto;
+}
+
+.request-detail h2, .request-form h2, .content h2 {
+    text-align: left;
 }
 
 .status-pending {
