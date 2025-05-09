@@ -6,7 +6,7 @@
         <h2>Редактирование заявки</h2>
 
         {% if current_user.is_authenticated %}
-            {% include "includes/request_edit_form.html" %}
+            {% include "includes/request_form_edit.html" %}
         {% else %}
             <div class="login-required">
                 <p>Для редактирования заявки необходимо

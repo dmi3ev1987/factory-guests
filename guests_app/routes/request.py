@@ -52,7 +52,7 @@ def request_create_view():
         db.session.add(guest)
         db.session.commit()
         flash(FLASH_MESSAGES['request_success'], 'success')
-    return render_template('request.html', form=form)
+    return render_template('request_create.html', form=form)
 
 
 @app.route('/my_requests')
