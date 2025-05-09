@@ -25,6 +25,8 @@ FLASH_MESSAGES = {
     ),
     'request_deleted': 'Ваша заявка успешно удалена',
     'request_updated': 'Ваша заявка успешно обновлена',
+    'request_approved': 'Заявка успешно одобрена',
+    'request_rejected': 'Заявка отклонена',
 }
 
 # Labels

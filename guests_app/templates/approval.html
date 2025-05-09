@@ -28,6 +28,20 @@
 
                 {% if current_user.is_approver %}
 
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            {% if category == 'approve' %}
+                                <p class="approve-message">
+                            {% elif category == 'reject' %}
+                                <p class="reject-message">
+                            {% endif %}
+                                {{ message }}
+                            </p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
                 <div class="visitor-cards">
                     {% if guests %}
                     

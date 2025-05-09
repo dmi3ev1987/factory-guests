@@ -1,7 +1,8 @@
-from flask import redirect, render_template, url_for
+from flask import flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
 
 from guests_app import app, db
+from guests_app.constants import FLASH_MESSAGES
 from guests_app.models import PassRequest
 from guests_app.routes.functions import get_guests
 
@@ -23,6 +24,7 @@ def approve_request_view(request_id):
         pass_request = PassRequest.query.get(request_id)
         pass_request.approved = True
         db.session.commit()
+        flash(FLASH_MESSAGES['request_approved'], 'approve')
     return redirect(url_for('approval_view'))
 
 
@@ -33,4 +35,5 @@ def reject_request_view(request_id):
         pass_request = PassRequest.query.get(request_id)
         pass_request.approved = False
         db.session.commit()
+        flash(FLASH_MESSAGES['request_rejected'], 'reject')
     return redirect(url_for('approval_view'))

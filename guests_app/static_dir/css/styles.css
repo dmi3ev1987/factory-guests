@@ -281,7 +281,7 @@ textarea {
     background-color: #7f8c8d;
 }
 
-.success-message, .error-message, .delete-message {
+.success-message, .error-message, .delete-message, .approve-message, .reject-message {
     padding: 1rem;
     border-radius: 4px;
     margin: 1rem 0;
@@ -303,6 +303,18 @@ textarea {
 .delete-message {
     background-color: #f8d7da;
     color: #c0392b;
+    border: 1px solid #f5c6cb;
+}
+
+.approve-message {
+    background-color: #ecfff1;
+    color: #2980b9;
+    border: 1px solid #c3e6cb;
+}
+
+.reject-message {
+    background-color: #ffeff0;
+    color: rgb(91, 97, 98);
     border: 1px solid #f5c6cb;
 }
 
