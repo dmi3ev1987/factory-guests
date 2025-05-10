@@ -6,7 +6,13 @@
         <h2>Редактирование заявки</h2>
 
         {% if current_user.is_authenticated %}
-            {% include "includes/request_form_edit.html" %}
+            {% if current_user.username == creator_username %}
+                {% include "includes/request_form_edit.html" %}
+            {% else %}
+                <div class="access-denied">
+                    <p>У вас нет прав на редактирование этой заявки.</p>
+                </div>
+            {% endif %}
         {% else %}
             <div class="login-required">
                 <p>Для редактирования заявки необходимо
