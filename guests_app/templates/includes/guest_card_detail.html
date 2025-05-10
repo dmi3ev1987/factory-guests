@@ -1,5 +1,8 @@
-<h3>{{ guest.guest_surname }} {{ guest.guest_first_name }} {{ guest.guest_patronymic }}</h3>
 <div class="visitor-info">
+    <div class="info-row">
+        <span class="info-label">ФИО посетителя:</span>
+        <span class="info-value">{{ guest.guest_surname }} {{ guest.guest_first_name }} {{ guest.guest_patronymic }}</span>
+    </div>
     <div class="info-row">
         <span class="info-label">Организация:</span>
         <span class="info-value">{{ guest.company_name }}</span>
