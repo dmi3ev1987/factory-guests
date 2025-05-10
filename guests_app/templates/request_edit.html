@@ -7,7 +7,13 @@
 
         {% if current_user.is_authenticated %}
             {% if current_user.username == creator_username %}
-                {% include "includes/request_form_edit.html" %}
+                {% if pass_request_status == None %}
+                    {% include "includes/request_form_edit.html" %}
+                {% else %}
+                    <div class="access-denied">
+                        <p>Вы не можете редактировать заявку, которая уже одобрена или отклонена.</p>
+                    </div>
+                {% endif %}
             {% else %}
                 <div class="access-denied">
                     <p>У вас нет прав на редактирование этой заявки.</p>

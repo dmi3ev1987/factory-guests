@@ -94,6 +94,7 @@ def request_edit_view(request_id):
     guest = get_guests(request_id=request_id).first()
     form = PassRequestEditForm(obj=guest)
     pass_request = get_pass_request_by_id(request_id)
+    pass_request_status = pass_request.approved
     creator_username = pass_request.created_by
     if form.validate_on_submit():
         pass_request.guest_full_name.first_name = form.guest_first_name.data
@@ -126,4 +127,5 @@ def request_edit_view(request_id):
         form=form,
         guest=guest,
         creator_username=creator_username,
+        pass_request_status=pass_request_status,
     )
