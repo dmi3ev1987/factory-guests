@@ -100,7 +100,7 @@
     </div>
 
     <div class="form-actions form-group-inline">
-        {{ form.submit }}
-        <button type="reset" class="btn secondary small form-control-center">Сбросить форму</button>
+        {% block buttons %}{% endblock buttons %}
     </div>
+
 </form>

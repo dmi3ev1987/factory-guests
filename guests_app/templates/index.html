@@ -23,7 +23,7 @@
                     {% include 'includes/guest_table_header.html' %}
                     
                     {% for guest in guests %}
-                        <a href="test" class="plain-link">
+                        <a href="{{ url_for('request_detail_view', request_id=guest.id) }}" class="plain-link">
                             <div class="visitor-table-card">
                                 <!-- {% include 'includes/guest_card.html' %} -->
                                 {% include 'includes/guest_table_card.html' %}

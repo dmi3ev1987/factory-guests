@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Список гостей{% endblock title %}
+{% block content %}
+<main>
+    <section class="visitors-list card-layout request-detail">
+        <div class="content">
+            <h2>Детали заявки</h2>
+            <div class="visitor-table-cards">
+                {% if guest %}
+                    {% include 'includes/guest_card_detail.html' %}
+                {% else %}
+                    <div class="no-data">
+                        <p>Нет данных для отображения</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock content %}

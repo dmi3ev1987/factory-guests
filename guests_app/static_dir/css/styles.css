@@ -243,7 +243,7 @@ textarea {
     width: 80px;
 }
 
-.btn.primary {
+.btn.primary, .btn.edit {
     background-color: #3498db;
     color: white;
     width: 200px;
@@ -254,21 +254,38 @@ textarea {
     background-color: #2980b9;
 }
 
-.btn.secondary {
+.btn.edit {
+    background-color: #8bc34a;
+}
+
+.btn.edit:hover {
+    background-color: #7cb342;
+}
+
+.btn.secondary, .btn.delete {
     background-color: #95a5a6;
     color: white;
     width: 200px;
     height: 40px;
 }
 
+.btn.delete {
+    background-color: #e75959;
+}
+
+.btn.delete:hover {
+    background-color: #c0392b;
+}
+
 .btn.secondary:hover {
     background-color: #7f8c8d;
 }
 
-.success-message, .error-message {
+.success-message, .error-message, .delete-message, .approve-message, .reject-message {
     padding: 1rem;
     border-radius: 4px;
     margin: 1rem 0;
+    text-align: center;
 }
 
 .success-message {
@@ -279,9 +296,28 @@ textarea {
 
 .error-message {
     background-color: #f8d7da;
-    color: #721c24;
+    color: #d24c59;
     border: 1px solid #f5c6cb;
 }
+
+.delete-message {
+    background-color: #f8d7da;
+    color: #c0392b;
+    border: 1px solid #f5c6cb;
+}
+
+.approve-message {
+    background-color: #ecfff1;
+    color: #2980b9;
+    border: 1px solid #c3e6cb;
+}
+
+.reject-message {
+    background-color: #ffeff0;
+    color: rgb(91, 97, 98);
+    border: 1px solid #f5c6cb;
+}
+
 
 .login-required, .access-denied {
     text-align: center;
@@ -298,8 +334,16 @@ textarea {
     text-align: center;
 }
 
-.request-form-width {
+.request-form-width, .request-detail {
     max-width: 600px;
+}
+
+.request-detail {
+    margin: 0 auto;
+}
+
+.request-detail h2, .request-form h2, .content h2 {
+    text-align: left;
 }
 
 .status-pending {

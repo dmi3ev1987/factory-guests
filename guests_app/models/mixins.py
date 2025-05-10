@@ -15,6 +15,7 @@ class CreateUpdateMixin(db.Model):
     __abstract__ = True
 
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
+    created_by = db.Column(db.String(MAX_STR_LENGTH), nullable=False)
     updated_at = db.Column(db.DateTime, nullable=True, onupdate=db.func.now())
     updated_by = db.Column(db.String(MAX_STR_LENGTH), nullable=True)
 
