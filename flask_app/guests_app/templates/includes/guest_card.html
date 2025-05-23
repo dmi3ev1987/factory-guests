@@ -1,0 +1,33 @@
+<h3>{{ guest.guest_surname }} {{ guest.guest_first_name }} {{ guest.guest_patronymic }}</h3>
+<div class="visitor-info">
+    <div class="info-row">
+        <span class="info-label">Организация:</span>
+        <span class="info-value">{{ guest.company_name }}</span>
+    </div>
+    <div class="info-row">
+        <span class="info-label">Приглашающее лицо:</span>
+        <span class="info-value">{{ guest.inviter_surname }} {{ guest.inviter_first_name }} {{ guest.inviter_patronymic }}</span>
+    </div>
+    <div class="info-row">
+        <span class="info-label">Место посещения:</span>
+        <span class="info-value">{{ guest.place_to_visit }}</span>
+    </div>
+    <div class="info-row">
+        <span class="info-label">Дата начала:</span>
+        <span class="info-value">{{ guest.time_start.strftime('%H:%M %d.%m.%Y') if guest.time_start else '' }}</span>
+    </div>
+    <div class="info-row">
+        <span class="info-label">Дата окончания:</span>
+        <span class="info-value">{{ guest.time_end.strftime('%H:%M %d.%m.%Y') if guest.time_end else '' }}</span>
+    </div>
+    <div class="info-row">
+        <span class="info-label">Цель визита:</span>
+        <span class="info-value">{{ guest.purpose }}</span>
+    </div>
+    <div class="info-row">
+        <span class="info-label">Статус:</span>
+        <span class="info-value">
+            {% include 'includes/status.html' %}
+        </span>
+    </div>
+</div>

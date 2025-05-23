@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Вход в систему{% endblock title %}
+{% block content %}
+
+<main>
+    <section class="login-form">
+        <h2>Вход в систему</h2>
+
+        <form method="POST" novalidate>
+            {{ form.csrf_token }}
+
+            <div class="form-group">
+                {{ form.username }}
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.password }}
+                {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %} 
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == 'error' %}
+                            <p class="text-danger">
+                        {% elif category == 'success' %}
+                            <p class="text-success">
+                        {% endif %}
+                                {{ message }}
+                            </p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="form-group">
+                {{ form.submit }}
+            </div>
+
+            <div class="register-link">
+                <p>Еще не зарегистрированы?<br>
+                    Пройдите по ссылке
+                    <a
+                        href="{{ url_for('register_view') }}"
+                    >
+                        зарегистрироваться.
+                    </a>
+                </p>
+            </div>
+        </form>
+
+    </section>
+
+</main>
+
+{% endblock content %}
