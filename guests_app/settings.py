@@ -8,3 +8,4 @@ class Config(object):
     ADMIN_USERNAME = os.getenv('ADMIN_USERNAME')
     ADMIN_EMAIL = os.getenv('ADMIN_EMAIL')
     ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD')
+    MIGRATIONS_DIR = os.getenv('MIGRATIONS_DIR')

@@ -7,3 +7,4 @@ FLASK_ADMIN_SWATCH=flatly
 ADMIN_USERNAME=admin
 ADMIN_EMAIL=admin@admin.admin
 ADMIN_PASSWORD=admin
+MIGRATIONS_DIR=guests_app/migrations
