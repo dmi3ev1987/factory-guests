@@ -1,14 +1,16 @@
 FLASK_APP=guests_app
 FLASK_DEBUG=1
+FLASK_RUN_HOST=0.0.0.0
+FLASK_RUN_PORT=5000
 
-POSTGRES_USER = my_user
-POSTGRES_PASSWORD = my_password_!@
+POSTGRES_USER=my_user
+POSTGRES_PASSWORD=my_password_!@
  # для запуска только docker-compose.local.postgres
-POSTGRES_HOST = localhost
+# POSTGRES_HOST=localhost
  # для запуска всего проекта указать имя сервиса с postgres
-# POSTGRES_HOST = postgres
-POSTGRES_PORT = 5432
-POSTGRES_DB = testdb
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=testdb
 
 SQLALCHEMY_DATABASE_URI=sqlite:///db.sqlite3
 SECRET_KEY=SECRET KEY

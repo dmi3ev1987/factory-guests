@@ -2,10 +2,9 @@ version: "3.9"
 
 volumes:
   pg_data:
-  static:
-  media:
 
 services:
+
   postgres:
     container_name: guests_app_database
     image: postgres:17.1-alpine3.20
@@ -19,16 +18,15 @@ services:
       interval: 5s
       timeout: 10s
       retries: 5
+
   guests_app:
     container_name: guests_app
-    build: ./guests_app/
+    build: ./flask_app/
     env_file: .env
     depends_on:
       postgres:
         condition: service_healthy
-    volumes:
-      - static:/backend_static
-      - media:/var/www/starlink/media
+
   nginx:
     container_name: guests_app_nginx
     depends_on:
@@ -37,6 +35,3 @@ services:
     env_file: .env
     ports:
       - 8000:80
-    volumes:
-      - static:/static
-      - media:/var/www/starlink/media
