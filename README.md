@@ -1,143 +1,78 @@
 
 ## Как запустить проект
-
   
-
 Cоздать и активировать виртуальное окружение:
 
-  
-
 * Если у вас Linux/macOS
-
   
-
 ```
-
 python3 -m venv venv
 
 source env/bin/activate
-
 ```
-
-  
 
 * Если у вас windows
 
-  
-
 ```
-
 python -m venv venv
 
 source env/scripts/activate
-
 ```
-
-  
 
 Обновите менеджер пакетов pip:
 
-  
-
 ```
-
 python -m pip install --upgrade pip
-
 ```
-
-  
-  
 
 Установить зависимости из файла requirements.txt:
 
-  
-
 ```
-
 pip install -r requirements.txt
-
 ```
-
   
-
 ## Создать БД sqlite (вручную)
-
   
-
 ```
-
 flask shell
-
 ```
-
-  
 
 После входа в shell вести команды по очереди:
 
-  
-
 ```
-
 >>> from guests_app import db
-
 >>> db.drop_all() # если нужно удалить предыдушую БД
-
 >>> db.create_all()
-
 >>> quit()
-
 ```
-
-  
 
 ## Работа с миграциями
 
-  
-
 ```
+# Создать репозиторий сценариев миграций
+flask db init
 
-flask db init # Создать репозиторий сценариев миграций.
+# Создать миграции
+flask db migrate -m "Name of mirgration"
 
-  
-
-flask db migrate -m "Name of mirgration" # Создать миграции.
-
-  
-
-flask db upgrade # Применить миграции.
-
+# Применить миграции
+flask db upgrade
 ```
-
-  
 
 ## Работа с Ruff linter and formatter
 
-  
-
 ```
-
 # Check and auto-fix all files in the project:
-
 ruff check --fix
 
-  
-
 # Check/fix a specific file:
-
 ruff check --fix path/to/file.py
 
-  
-
 # Preview fixes before applying:
-
 ruff check --fix --diff
 
-  
-
 # For formatting, use:
-
 ruff format
-
 ```
 
 
@@ -169,7 +104,7 @@ sudo docker compose -f docker-compose.local.postgres.yml up --build
 POSTGRES_HOST=localhost
 ```
 
-Запустить приложение в терминале из папки backend:
+Запустить прилоежение в терминале из папки backend:
 
 ```
 cd backend/
@@ -192,7 +127,7 @@ SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
 SQLALCHEMY_DATABASE_URI=sqlite:///db.sqlite3
 ```
 
-Запустить приложение в терминале из папки backend:
+Запустить прилоежение в терминале из папки backend:
 
 ```
 cd backend/
