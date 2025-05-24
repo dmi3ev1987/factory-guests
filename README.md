@@ -135,13 +135,29 @@ cd backend/
 flask run
 ```
 
+Для запуска postgres в контенере в settings вернуть:
+
+```
+DB_USER = os.getenv('POSTGRES_USER')
+if not DB_USER:
+	raise ValueError(VALUE_ERRORS['POSTGRES_USER'])
+
+DB_PASSWORD = quote_plus(os.getenv('POSTGRES_PASSWORD', ''))
+DB_HOST = os.getenv('POSTGRES_HOST', 'localhost')
+DB_PORT = os.getenv('POSTGRES_PORT', '5432')
+DB_NAME = os.getenv('POSTGRES_DB', 'db_dev')
+
+SQLALCHEMY_DATABASE_URI = (
+	f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+)
+```
+
+
 4. Команды docker для очистки системы:
 
 ```
 # удалить все контейнеры и volumes
 sudo docker compose -f docker-compose.local.yml down -v
-sudo docker compose -f docker-compose.local.postgres.yml down -v
-sudo docker compose -f docker-compose.production.yml down -v
 
 # очистка системы от образов
 sudo docker system prune -a --volumes
