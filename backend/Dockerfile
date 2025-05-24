@@ -1,6 +1,6 @@
 FROM python:3.12.7-alpine3.20
 
-WORKDIR /flask_app
+WORKDIR /backend
 
 RUN pip install --upgrade pip
 

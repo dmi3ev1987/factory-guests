@@ -21,7 +21,7 @@ services:
 
   guests_app:
     container_name: guests_app
-    build: ./flask_app/
+    build: ./backend/
     env_file: .env
     depends_on:
       postgres:
