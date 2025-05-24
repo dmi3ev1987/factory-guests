@@ -140,6 +140,8 @@ flask run
 ```
 # удалить все контейнеры и volumes
 sudo docker compose -f docker-compose.local.yml down -v
+sudo docker compose -f docker-compose.local.postgres.yml down -v
+sudo docker compose -f docker-compose.production.yml down -v
 
 # очистка системы от образов
 sudo docker system prune -a --volumes
