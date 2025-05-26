@@ -29,9 +29,9 @@ services:
 
   nginx:
     container_name: guests_app_nginx
-    depends_on:
-      - guests_app
     build: ./nginx/
     env_file: .env
+    depends_on:
+      - guests_app
     ports:
       - 8000:80
