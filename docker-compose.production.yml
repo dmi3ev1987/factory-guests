@@ -1,0 +1,37 @@
+version: "3.9"
+
+volumes:
+  pg_data:
+
+services:
+
+  postgres:
+    container_name: guests_app_database
+    image: postgres:17.1-alpine3.20
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  guests_app:
+    container_name: guests_app_backend
+    image: dmi3ev1987/guests_app_backend:latest
+    env_file: .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  nginx:
+    container_name: guests_app_nginx
+    image: dmi3ev1987/guests_app_nginx:latest
+    env_file: .env
+    depends_on:
+      - guests_app
+    ports:
+      - 8000:80
