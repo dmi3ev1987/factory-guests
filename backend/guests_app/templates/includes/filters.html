@@ -1,14 +1,9 @@
-<h2>Фильтры</h2>
 <div class="filter-group">
-    <label for="search">Поиск:</label>
-    <input type="text" id="search" v-model="searchQuery" placeholder="ФИО или организация">
+    <input
+        type="text"
+        id="search"
+        name="search_query"
+        placeholder="ФИО или организация"
+    >
 </div>
-<div class="filter-group">
-    <label for="status-filter">Статус:</label>
-    <select id="status-filter" v-model="statusFilter">
-        <option value="all">Все заявки</option>
-        <option value="pending">Ожидающие</option>
-        <option value="approved">Одобренные</option>
-        <option value="rejected">Отклоненные</option>
-    </select>
-</div>
+<button type="submit" class="btn small btn-secondary">Поиск</button>

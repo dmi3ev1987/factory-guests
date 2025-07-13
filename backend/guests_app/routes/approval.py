@@ -1,4 +1,4 @@
-from flask import flash, redirect, render_template, url_for
+from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
 from guests_app import app, db
@@ -10,7 +10,11 @@ from guests_app.routes.functions import get_guests
 @app.route('/approval')
 def approval_view():
     """Страница одобрения заявок на пропуска."""
-    guests = get_guests(approval_status='pending').all()
+    search_query = request.args.get('search_query')
+    guests = get_guests(
+        approval_status='pending',
+        search_query=search_query,
+    ).all()
 
     guests_list = [dict(guest._asdict()) for guest in guests]
 
