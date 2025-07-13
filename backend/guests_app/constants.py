@@ -72,3 +72,13 @@ VALIDATION_MESSAGES = {
 VALUE_ERRORS = {
     'DB_USER': 'DB_USER переменная окружения не установлена',
 }
+
+# Password check
+PASSWORD_CHECK = {
+    'one_digit': 'минимум 1 цифру',
+    'upper_case': 'минимум 1 заглавную букву',
+    'lower_case': 'минимум 1 строчную букву',
+    'special_character': 'минимум 1 спецсимвол',
+    'min_length': 'минимум 8 символов',
+    'error_text': 'Пароль должен содержать: ',
+}

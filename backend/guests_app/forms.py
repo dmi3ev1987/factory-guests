@@ -23,6 +23,7 @@ from .constants import (
 from .validators import (
     validate_email_exists,
     validate_email_is_corporate,
+    validate_password_comlexity,
     validate_username,
     validate_username_exists,
     validate_username_not_exists,
@@ -191,6 +192,7 @@ class RegistrationForm(FlaskForm):
         validators=[
             DataRequired(message=DATA_REQUIRED_MESSAGE),
             Length(max=MAX_STR_LENGTH),
+            validate_password_comlexity,
         ],
         render_kw={
             'class': 'form-control form-control-center',
