@@ -69,3 +69,6 @@ VALIDATION_MESSAGES = {
     'email_exists': 'Пользователь с таким email уже зарегистрирован',
     'email_not_corporate': 'email должен завершаться на ' + EMAIL_DOMAIN,
 }
+VALUE_ERRORS = {
+    'DB_USER': 'DB_USER переменная окружения не установлена',
+}
