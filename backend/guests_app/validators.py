@@ -56,3 +56,12 @@ def validate_password_complexity(form, field):
     for rule, pattern in patterns.items():
         if not re.search(pattern, password):
             raise ValidationError(PASSWORD_CHECK['error_text'] + rule)
+
+
+def validate_end_time(form, field):
+    if (
+        form.time_start.data
+        and field.data
+        and field.data <= form.time_start.data
+    ):
+        raise ValidationError(VALIDATION_MESSAGES['end_time_earlier'])

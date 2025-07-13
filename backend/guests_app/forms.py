@@ -23,6 +23,7 @@ from .constants import (
 from .validators import (
     validate_email_exists,
     validate_email_is_corporate,
+    validate_end_time,
     validate_password_complexity,
     validate_username,
     validate_username_exists,
@@ -128,7 +129,10 @@ class PassRequestForm(FlaskForm):
     )
     time_end = DateTimeLocalField(
         LABELS['time_end'],
-        validators=[DataRequired(message=DATA_REQUIRED_MESSAGE)],
+        validators=[
+            DataRequired(message=DATA_REQUIRED_MESSAGE),
+            validate_end_time,
+        ],
         render_kw={
             'class': 'form-control-name',
         },
