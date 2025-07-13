@@ -28,9 +28,10 @@ def get_guests(
             'rejected' - отклоненные заявки,
             'pending' - ожидающие.
 
+        date (str): Дата, для которой нужно получить заявки.
         request_id (int): ID заявки, которую нужно получить.
         creator_username (str): Имя пользователя, создавшего заявку.
-        date (str): Дата, для которой нужно получить заявки.
+        search_query (str): Поисковый запрос для поиска по ФИО или компании.
 
     Returns:
         query: SQLAlchemy query object.
