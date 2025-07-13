@@ -42,7 +42,7 @@ def validate_email_exists(form, field):
         raise ValidationError(VALIDATION_MESSAGES['email_exists'])
 
 
-def validate_password_comlexity(form, field):
+def validate_password_complexity(form, field):
     password = field.data
 
     patterns = {
