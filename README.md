@@ -1,20 +1,23 @@
-## Как запустить проект
 
+## Как запустить проект
+  
 Cоздать и активировать виртуальное окружение:
 
 * Если у вас Linux/macOS
+  
+```
+python3 -m venv venv
 
-    ```
-    python3 -m venv venv  
-    source env/bin/activate
-    ```
+source env/bin/activate
+```
 
 * Если у вас windows
 
-    ```
-    python -m venv venv
-    source env/scripts/activate
-    ```
+```
+python -m venv venv
+
+source env/scripts/activate
+```
 
 Обновите менеджер пакетов pip:
 
@@ -22,15 +25,14 @@ Cоздать и активировать виртуальное окружен�
 python -m pip install --upgrade pip
 ```
 
-
 Установить зависимости из файла requirements.txt:
 
 ```
 pip install -r requirements.txt
 ```
-
+  
 ## Создать БД sqlite (вручную)
-
+  
 ```
 flask shell
 ```
@@ -47,11 +49,14 @@ flask shell
 ## Работа с миграциями
 
 ```
-flask db init  # Создать репозиторий сценариев миграций.
+# Создать репозиторий сценариев миграций
+flask db init
 
-flask db migrate -m "Name of mirgration"  # Создать миграции.
+# Создать миграции
+flask db migrate -m "Name of mirgration"
 
-flask db upgrade  # Применить миграции.
+# Применить миграции
+flask db upgrade
 ```
 
 ## Работа с Ruff linter and formatter
@@ -71,6 +76,96 @@ ruff format
 ```
 
 
+## Запуск приложения в контейнерах
+
+1. Локальный запуск всего приложения:
+
+```
+sudo docker compose -f docker-compose.local.yml up --build
+```
+
+В .env файле нужно указать:
+
+```
+# для запуска всего проекта указать имя сервиса с postgres
+POSTGRES_HOST=postgres
+```
+
+2. Локальный запуск только postgres в контейнере:
+
+```
+sudo docker compose -f docker-compose.local.postgres.yml up --build
+```
+
+В .env файле нужно указать:
+
+```
+# для запуска только postgres в контейнере
+POSTGRES_HOST=localhost
+```
+
+Запустить прилоежение в терминале из папки backend:
+
+```
+cd backend/
+
+flask run
+```
+
+3. Локальный запуск приложения без контенеров и с базой SQLite:
+
+В файле settings.py прописать:
+```
+# backend/guests_app/settings.py
+
+SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
+```
+
+В .env файле прописать:
+
+```
+SQLALCHEMY_DATABASE_URI=sqlite:///db.sqlite3
+```
+
+Запустить прилоежение в терминале из папки backend:
+
+```
+cd backend/
+
+flask run
+```
+
+Для запуска postgres в контенере в settings вернуть:
+
+```
+DB_USER = os.getenv('POSTGRES_USER')
+if not DB_USER:
+	raise ValueError(VALUE_ERRORS['POSTGRES_USER'])
+
+DB_PASSWORD = quote_plus(os.getenv('POSTGRES_PASSWORD', ''))
+DB_HOST = os.getenv('POSTGRES_HOST', 'localhost')
+DB_PORT = os.getenv('POSTGRES_PORT', '5432')
+DB_NAME = os.getenv('POSTGRES_DB', 'db_dev')
+
+SQLALCHEMY_DATABASE_URI = (
+	f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+)
+```
+
+
+4. Команды docker для очистки системы:
+
+```
+# удалить все контейнеры и volumes
+sudo docker compose -f docker-compose.local.yml down -v
+
+# очистка системы от образов
+sudo docker system prune -a --volumes
+```
+  
+
 ### Автор проекта
+
+  
 
 [Дмитриев Андрей](https://github.com/dmi3ev1987)
