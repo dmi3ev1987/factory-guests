@@ -6,6 +6,7 @@ from .constants import (
     EMAIL_DOMAIN,
     MAX_USERNAME_LENGTH,
     MIN_USERNAME_LENGTH,
+    PASSWORD_CHECK,
     VALIDATION_MESSAGES,
 )
 from .models import User
@@ -39,3 +40,28 @@ def validate_email_is_corporate(form, field):
 def validate_email_exists(form, field):
     if User.query.filter_by(email=field.data).first():
         raise ValidationError(VALIDATION_MESSAGES['email_exists'])
+
+
+def validate_password_complexity(form, field):
+    password = field.data
+
+    patterns = {
+        PASSWORD_CHECK['one_digit']: r'\d',
+        PASSWORD_CHECK['upper_case']: r'[A-Z]',
+        PASSWORD_CHECK['lower_case']: r'[a-z]',
+        PASSWORD_CHECK['special_character']: r'[!@#$%^&*(),.?":{}|<>]',
+        PASSWORD_CHECK['min_length']: r'.{8,}',
+    }
+
+    for rule, pattern in patterns.items():
+        if not re.search(pattern, password):
+            raise ValidationError(PASSWORD_CHECK['error_text'] + rule)
+
+
+def validate_end_time(form, field):
+    if (
+        form.time_start.data
+        and field.data
+        and field.data <= form.time_start.data
+    ):
+        raise ValidationError(VALIDATION_MESSAGES['end_time_earlier'])
