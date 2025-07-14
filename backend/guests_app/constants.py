@@ -68,7 +68,18 @@ VALIDATION_MESSAGES = {
     'username_not_exists': 'Пользователь с таким именем не зарегистрирован',
     'email_exists': 'Пользователь с таким email уже зарегистрирован',
     'email_not_corporate': 'email должен завершаться на ' + EMAIL_DOMAIN,
+    'end_time_earlier': 'Время окончания должно быть позже времени начала',
 }
 VALUE_ERRORS = {
     'DB_USER': 'DB_USER переменная окружения не установлена',
+}
+
+# Password check
+PASSWORD_CHECK = {
+    'one_digit': 'минимум 1 цифру',
+    'upper_case': 'минимум 1 заглавную букву',
+    'lower_case': 'минимум 1 строчную букву',
+    'special_character': 'минимум 1 спецсимвол',
+    'min_length': 'минимум 8 символов',
+    'error_text': 'Пароль должен содержать: ',
 }

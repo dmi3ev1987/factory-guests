@@ -4,15 +4,12 @@
 <main>
     <section class="visitors-list card-layout">
         <div class="sidebar">
-            <h2>Фильтры</h2>
-            <div class="filter-group">
-                <label for="search">Поиск:</label>
-                <input type="text" id="search" v-model="searchQuery" placeholder="ФИО или организация">
-            </div>
-            <div class="filter-group">
-                <label for="date-filter">Дата:</label>
-                <input type="date" id="date-filter" v-model="filterDate">
-            </div>
+            <form method="get" action="{{ url_for('index_view') }}" class="filter-form">
+                {% include 'includes/filters.html' %}
+                <a href="{{ url_for('index_view') }}" class="btn small btn-secondary">
+                    Сброс
+                </a>
+            </form>
         </div>
         
         <div class="content">

@@ -1,4 +1,4 @@
-from flask import flash, redirect, render_template, url_for
+from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
 from guests_app import app, db
@@ -59,8 +59,12 @@ def request_create_view():
 @login_required
 def my_requests_view():
     """Отображение моих заявок."""
+    search_query = request.args.get('search_query')
     guests = (
-        get_guests(creator_username=current_user.username)
+        get_guests(
+            creator_username=current_user.username,
+            search_query=search_query,
+        )
         .order_by(
             PassRequest.created_at.desc(),
         )
